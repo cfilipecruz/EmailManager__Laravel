@@ -82,6 +82,7 @@ return [
     |
     */
 
+    //new language added to the lang/vendor/adminlte
     'locale' => 'pt-pt',
 
     /*
