@@ -151,7 +151,7 @@ return [
     'layout_topnav' => null,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => false,
-    'layout_fixed_navbar' => true,
+    'layout_fixed_navbar' => false,
     'layout_fixed_footer' => false,
     'layout_dark_mode' => true,
 
