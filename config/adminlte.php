@@ -312,8 +312,8 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Meus Processps',
-            'url'         => 'admin/pages',
+            'text'        => 'Meus Processos',
+            'url'         => 'meusprocessos',
             'icon'        => 'far fa-fw fa-file',
             'label'       => 4,
             'label_color' => 'success',
@@ -324,11 +324,12 @@ return [
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
-        /*[
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
+        [
+            'text' => 'mailbox',
+            'url'  => 'mailbox',
             'icon' => 'fas fa-fw fa-lock',
-        ],*/
+        ],
+
        /* [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
