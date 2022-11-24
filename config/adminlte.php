@@ -153,7 +153,7 @@ return [
     'layout_fixed_sidebar' => false,
     'layout_fixed_navbar' => false,
     'layout_fixed_footer' => false,
-    'layout_dark_mode' => true,
+    'layout_dark_mode' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -232,7 +232,7 @@ return [
     |
     */
 
-    'right_sidebar' => false,
+    'right_sidebar' => true,
     'right_sidebar_icon' => 'fas fa-cogs',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
@@ -307,16 +307,16 @@ return [
             'text' => 'search',
         ],*/
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
             'text'        => 'Meus Processos',
             'url'         => 'meusprocessos',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-fw fa-clipboard-list',
             'label'       => 4,
             'label_color' => 'success',
+        ],
+        [
+            'text' => 'mailbox',
+            'url'  => 'mailbox',
+            'icon' => 'fas fa-fw  fa-envelope',
         ],
         ['header' => 'account_settings'],
         [
@@ -324,11 +324,7 @@ return [
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
-        [
-            'text' => 'mailbox',
-            'url'  => 'mailbox',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
+     
 
        /* [
             'text'    => 'multilevel',

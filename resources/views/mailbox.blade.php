@@ -10,19 +10,19 @@
 @section('title', 'Dashboard')
 
 <?php
-    use Ddeboer\Imap\Server;
+use Ddeboer\Imap\Server;
 
-    $server = new Server('imap.gmail.com');
+$server = new Server('imap.gmail.com');
 
-    $username = 'mailmanagerprojeto@gmail.com';
-    $password = 'affjbedmncgcdrsl';
+$username = 'mailmanagerprojeto@gmail.com';
+$password = 'affjbedmncgcdrsl';
 
-    // $connection is instance of \Ddeboer\Imap\Connection
-    $connection = $server->authenticate($username, $password);
+// $connection is instance of \Ddeboer\Imap\Connection
+$connection = $server->authenticate($username, $password);
 
-    $mailboxes = $connection->getMailboxes();
+$mailboxes = $connection->getMailboxes();
 
-    foreach ($mailboxes as $mailbox) {
+foreach ($mailboxes as $mailbox) {
     // Skip container-only mailboxes
     // @see https://secure.php.net/manual/en/function.imap-getmailboxes.php
     if ($mailbox->getAttributes() & \LATT_NOSELECT) {
@@ -30,72 +30,96 @@
     }
 
     // $mailbox is instance of \Ddeboer\Imap\Mailbox
-   // printf('Mailbox "%s" has %s messages', $mailbox->getName(), $mailbox->count());
+    // printf('Mailbox "%s" has %s messages', $mailbox->getName(), $mailbox->count());
 }
-    $messages = $mailbox->getMessages();
-    /*$messages = $mailbox->getMessages(
+$messages = $mailbox->getMessages();
+/*$messages = $mailbox->getMessages(
     new Ddeboer\Imap\Search\Date\Since($thirtyDaysAgo),
     \SORTDATE, // Sort criteria
-    true // Descending order*/  
+    true // Descending order*/
+$numberOfmessages = 0;
+$maxMessagesPerPage = 10;
 ?>
 
- @section('content')
-    <div class="row">
+@section('content')
+    <div class="row m-1 mt-3">
         <div class="col-md-3">
-            <section class="content-header">
-                <h1>
-                    Mailbox
-                    <small>13 new messages</small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Mailbox</li>
-                </ol>
-            </section>
-            <a href="compose.html" class="btn btn-primary btn-block margin-bottom">Compose</a>
-            <div class="box box-solid">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Folders</h3>
-                    <div class="box-tools">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            <a href="compose.html" class="btn btn-primary btn-block mb-3">Refresh Emails</a>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Folders</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
                         </button>
                     </div>
                 </div>
-                <div class="box-body no-padding">
-                    <ul class="nav nav-pills nav-stacked">
-                        <li class="active"><a href="#"><i class="fa fa-inbox"></i> Inbox
-                                <span class="label label-primary pull-right">12</span></a></li>
-                        <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
-                        <li><a href="#"><i class="fa fa-file-text-o"></i> Drafts</a></li>
-                        <li><a href="#"><i class="fa fa-filter"></i> Junk <span
-                                    class="label label-warning pull-right">65</span></a>
+                <div class="card-body p-0">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item active">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-inbox"></i> Inbox
+                                <span class="badge bg-primary float-right">12</span>
+                            </a>
                         </li>
-                        <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-envelope"></i> Sent
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-file-alt"></i> Drafts
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-filter"></i> Junk
+                                <span class="badge bg-warning float-right">65</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-trash-alt"></i> Trash
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
             </div>
 
-            <div class="box box-solid">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Labels</h3>
-                    <div class="box-tools">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Labels</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
                         </button>
                     </div>
                 </div>
-                <div class="box-body no-padding">
-                    <ul class="nav nav-pills nav-stacked">
-                        <li><a href="#"><i class="fa fa-circle-o text-red"></i> Important</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> Promotions</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-light-blue"></i> Social</a></li>
+                <div class="card-body p-0">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle text-danger"></i>
+                                Important
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle text-warning"></i> Promotions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle text-primary"></i>
+                                Social
+                            </a>
+                        </li>
                     </ul>
                 </div>
-
             </div>
-
         </div>
-
         <div class="col-md-9">
             <div class="box box-primary">
                 <div class="box-header with-border">
@@ -133,31 +157,50 @@
 
                     </div>
                     <div class="table-responsive mailbox-messages">
-                        <table class="table table-hover table-striped">
-
-                           <?php foreach ($messages as $message) {
-                            echo '
+                        <table class="table table-hover">
                             <tbody>
                                 <tr>
-                                    <td>
-                                        <div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false"
-                                            style="position: relative;"><input type="checkbox"
-                                                style="position: absolute; opacity: 0;"><ins class="iCheck-helper"
-                                                style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                        </div>
-                                    </td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a>
-                                    </td>
-                                    <td class="mailbox-name"><a href="read-mail.html">'./*$message->getFrom().*/'</a></td>
-                                    <td class="mailbox-subject"><b>'.$message->getSubject().'</b> '.$message->getSubject().'
-                                    </td>
-                                    <td class="mailbox-attachment"></td>
-                                    <td class="mailbox-date">'./*$message->getDate().*/'</td>
+                                    <td >read</td>
+                                    <td >Email</td>
+                                    <td >Subject</td>
+                                    <td >content</td>
+                                    <td >date</td>
                                 </tr>
-                            </tbody>
-                            ';
-                        };
+                            <?php
+                            
+                            foreach ($messages as $message) {
+                                $numberOfmessages++;
+                                if ($numberOfmessages <= $maxMessagesPerPage) {
+                                   // $id = $message->getId();
+                                    $number = $message->getNumber();
+                                    echo '
+                                                            
+                                                            <tr>
+                                                               
+                                                            <td>
+                                                                '.$number.'
+                                                            </td>
+                                                            <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a>
+                                                            </td>
+                                                            <td class="mailbox-name"><a href="read-mail.html">' .
+                                        $message->getFrom()->getAddress() .
+                                        '</a></td>
+                                                            <td class="mailbox-subject"><b>' .
+                                        $message->getSubject() .
+                                        '</b> ' .
+                                        $message->getSubject() .
+                                        '
+                                                            </td>
+                                                            <td class="mailbox-date">' .
+                                        $message->getDate()->format('d/m/Y') .
+                                        '</td>
+                                                                </tr>
+                                                                                                    
+                                                        ';
+                                }
+                            }
                             ?>
+                            </tbody> 
                         </table>
                     </div>
                 </div>
@@ -165,18 +208,3 @@
         </div>
     </div>
 @stop
-
-<?php
-$mailboxes = $connection->getMailboxes();
-
-/*foreach ($mailboxes as $mailbox) {
-    // Skip container-only mailboxes
-    // @see https://secure.php.net/manual/en/function.imap-getmailboxes.php
-    if ($mailbox->getAttributes() & \LATT_NOSELECT) {
-        continue;
-    }
-
-    // $mailbox is instance of \Ddeboer\Imap\Mailbox
-    printf('Mailbox "%s" has %s messages', $mailbox->getName(), $mailbox->count());
-}*/
-?>
