@@ -109,7 +109,7 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/emailCon.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation_wobble',
             'width' => 100,

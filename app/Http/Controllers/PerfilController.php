@@ -15,6 +15,13 @@ class PerfilController extends Controller
 
     public function update(User $user, Request $request)
     {   
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'updated_at' => now()
+         ]);
+
         return back();
     }
 }
