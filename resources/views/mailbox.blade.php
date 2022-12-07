@@ -25,18 +25,25 @@ $mailboxes = $connection->getMailboxes();
 foreach ($mailboxes as $mailbox) {
     // Skip container-only mailboxes
     // @see https://secure.php.net/manual/en/function.imap-getmailboxes.php
-    if ($mailbox->getAttributes() & \LATT_NOSELECT) {
+    if ($mailbox->getAttributes()) {
         continue;
     }
 
     // $mailbox is instance of \Ddeboer\Imap\Mailbox
     // printf('Mailbox "%s" has %s messages', $mailbox->getName(), $mailbox->count());
 }
-$messages = $mailbox->getMessages();
-/*$messages = $mailbox->getMessages(
-    new Ddeboer\Imap\Search\Date\Since($thirtyDaysAgo),
+$today = new DateTimeImmutable();
+$TwoYearsAgo = $today->sub(new DateInterval('P2Y'));
+
+$messages = $mailbox->getMessages(
+    new Ddeboer\Imap\Search\Date\Since($TwoYearsAgo),
     \SORTDATE, // Sort criteria
-    true // Descending order*/
+    true // Descending order
+);
+
+foreach ($messages as $message) {
+}
+$number = $message->getNumber();
 $numberOfmessages = 0;
 $maxMessagesPerPage = 10;
 ?>
@@ -58,29 +65,25 @@ $maxMessagesPerPage = 10;
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item active">
                             <a href="#" class="nav-link">
-                                <i class="fas fa-inbox"></i> Inbox
-                                <span class="badge bg-primary float-right">12</span>
+                                <i class="far fa-envelope"></i> New
+                                <span class="badge bg-primary float-right"><?php 
+                                      foreach ($mailboxes as $mailbox) {
+                                    // Skip container-only mailboxes
+                                    // @see https://secure.php.net/manual/en/function.imap-getmailboxes.php
+                                    if ($mailbox->getAttributes() & \LATT_MARKED) {
+                                        continue;
+                                    }
+                                
+                                    // $mailbox is instance of \Ddeboer\Imap\Mailbox
+                                    
+                                }
+                                printf($mailbox->count());
+                                     ?> </span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="far fa-envelope"></i> Sent
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-file-alt"></i> Drafts
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-filter"></i> Junk
-                                <span class="badge bg-warning float-right">65</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-trash-alt"></i> Trash
+                                <i class="far fa-envelope-open"></i> Seen
                             </a>
                         </li>
                     </ul>
@@ -160,47 +163,51 @@ $maxMessagesPerPage = 10;
                         <table class="table table-hover">
                             <tbody>
                                 <tr>
-                                    <td >read</td>
-                                    <td >Email</td>
-                                    <td >Subject</td>
-                                    <td >content</td>
-                                    <td >date</td>
+                                    <td>read</td>
+                                    <td>Email</td>
+                                    <td>Subject</td>
+                                    <td>content</td>
+                                    <td>date</td>
                                 </tr>
-                            <?php
-                            
-                            foreach ($messages as $message) {
-                                $numberOfmessages++;
-                                if ($numberOfmessages <= $maxMessagesPerPage) {
-                                   // $id = $message->getId();
-                                    $number = $message->getNumber();
-                                    echo '
-                                                            
-                                                            <tr>
-                                                               
-                                                            <td>
-                                                                '.$number.'
-                                                            </td>
-                                                            <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a>
-                                                            </td>
-                                                            <td class="mailbox-name"><a href="read-mail.html">' .
-                                        $message->getFrom()->getAddress() .
-                                        '</a></td>
-                                                            <td class="mailbox-subject"><b>' .
-                                        $message->getSubject() .
-                                        '</b> ' .
-                                        $message->getSubject() .
-                                        '
-                                                            </td>
-                                                            <td class="mailbox-date">' .
-                                        $message->getDate()->format('d/m/Y') .
-                                        '</td>
-                                                                </tr>
-                                                                                                    
-                                                        ';
+                                <?php
+                                
+                                foreach ($messages as $message) {
+                                    $numberOfmessages++;
+
+                                    if ($numberOfmessages <= $maxMessagesPerPage) {
+                                        // $id = $message->getId();
+                                        $number = $message->getNumber();
+                                        echo '
+                                                                                            
+                                                                                            <tr>
+                                                                                               
+                                                                                            <td>
+                                                                                                ' .
+                                            $number .
+                                            '
+                                                                                            </td>
+                                                                                            <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a>
+                                                                                            </td>
+                                                                                            <td class="mailbox-name"><a href="read-mail.html">' .
+                                            $message->getFrom()->getAddress() .
+                                            '</a></td>
+                                                                                            <td class="mailbox-subject"><b>' .
+                                            $message->getSubject() .
+                                            '</b> ' .
+                                            $message->getSubject() .
+                                            '
+                                                                                            </td>
+                                                                                            <td class="mailbox-date">' .
+                                            $message->getDate()->format('d/m/Y') .
+                                            '</td>
+                                                                                                </tr>
+                                                                                                                                    
+                                                                                        ';
+                                    }
                                 }
-                            }
-                            ?>
-                            </tbody> 
+                              
+                                ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>
