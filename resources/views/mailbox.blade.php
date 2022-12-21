@@ -9,49 +9,10 @@
 
 @section('title', 'Dashboard')
 
-<?php
-use Ddeboer\Imap\Server;
-
-$server = new Server('imap.gmail.com');
-
-$username = 'mailmanagerprojeto@gmail.com';
-$password = 'affjbedmncgcdrsl';
-
-// $connection is instance of \Ddeboer\Imap\Connection
-$connection = $server->authenticate($username, $password);
-
-$mailboxes = $connection->getMailboxes();
-
-foreach ($mailboxes as $mailbox) {
-    // Skip container-only mailboxes
-    // @see https://secure.php.net/manual/en/function.imap-getmailboxes.php
-    if ($mailbox->getAttributes()) {
-        continue;
-    }
-
-    // $mailbox is instance of \Ddeboer\Imap\Mailbox
-    // printf('Mailbox "%s" has %s messages', $mailbox->getName(), $mailbox->count());
-}
-$today = new DateTimeImmutable();
-$TwoYearsAgo = $today->sub(new DateInterval('P2Y'));
-
-$messages = $mailbox->getMessages(
-    new Ddeboer\Imap\Search\Date\Since($TwoYearsAgo),
-    \SORTDATE, // Sort criteria
-    true // Descending order
-);
-
-foreach ($messages as $message) {
-}
-$number = $message->getNumber();
-$numberOfmessages = 0;
-$maxMessagesPerPage = 10;
-?>
-
 @section('content')
     <div class="row m-1 mt-3">
         <div class="col-md-3">
-            <a href="compose.html" class="btn btn-primary btn-block mb-3">Refresh Emails</a>
+            <a id="refreshEmails" class="btn btn-primary btn-block mb-3">Refresh Emails</a>
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Folders</h3>
@@ -66,19 +27,8 @@ $maxMessagesPerPage = 10;
                         <li class="nav-item active">
                             <a href="#" class="nav-link">
                                 <i class="far fa-envelope"></i> New
-                                <span class="badge bg-primary float-right"><?php 
-                                      foreach ($mailboxes as $mailbox) {
-                                    // Skip container-only mailboxes
-                                    // @see https://secure.php.net/manual/en/function.imap-getmailboxes.php
-                                    if ($mailbox->getAttributes() & \LATT_MARKED) {
-                                        continue;
-                                    }
-                                
-                                    // $mailbox is instance of \Ddeboer\Imap\Mailbox
-                                    
-                                }
-                                printf($mailbox->count());
-                                     ?> </span>
+                                <span class="badge bg-primary float-right">
+                                </span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -124,94 +74,38 @@ $maxMessagesPerPage = 10;
             </div>
         </div>
         <div class="col-md-9">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Inbox</h3>
-                    <div class="box-tools pull-right">
-                        <div class="has-feedback">
-                            <input type="text" class="form-control input-sm" placeholder="Search Mail">
-                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                        </div>
-                    </div>
-
+            <div class="box-tools pull-right">
+                <div class="has-feedback">
+                    <input type="text" class="form-control input-sm" placeholder="Search Mail">
+                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
                 </div>
-                <div class="box-body no-padding">
-                    <div class="mailbox-controls">
-
-                        <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
-                        </button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                        </div>
-
-                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                        <div class="pull-right">
-                            1-50/200
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm"><i
-                                        class="fa fa-chevron-left"></i></button>
-                                <button type="button" class="btn btn-default btn-sm"><i
-                                        class="fa fa-chevron-right"></i></button>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="table-responsive mailbox-messages">
-                        <table class="table table-hover">
-                            <tbody>
-                                <tr>
-                                    <td>read</td>
-                                    <td>Email</td>
-                                    <td>Subject</td>
-                                    <td>content</td>
-                                    <td>date</td>
-                                </tr>
-                                <?php
-                                
-                                foreach ($messages as $message) {
-                                    $numberOfmessages++;
-
-                                    if ($numberOfmessages <= $maxMessagesPerPage) {
-                                        // $id = $message->getId();
-                                        $number = $message->getNumber();
-                                        echo '
-                                                                                            
-                                                                                            <tr>
-                                                                                               
-                                                                                            <td>
-                                                                                                ' .
-                                            $number .
-                                            '
-                                                                                            </td>
-                                                                                            <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a>
-                                                                                            </td>
-                                                                                            <td class="mailbox-name"><a href="read-mail.html">' .
-                                            $message->getFrom()->getAddress() .
-                                            '</a></td>
-                                                                                            <td class="mailbox-subject"><b>' .
-                                            $message->getSubject() .
-                                            '</b> ' .
-                                            $message->getSubject() .
-                                            '
-                                                                                            </td>
-                                                                                            <td class="mailbox-date">' .
-                                            $message->getDate()->format('d/m/Y') .
-                                            '</td>
-                                                                                                </tr>
-                                                                                                                                    
-                                                                                        ';
-                                    }
-                                }
-                              
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            </div>
+            <div id='emails'>
             </div>
         </div>
     </div>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.2.min.js"
+            integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+    <script>
+
+        $("#refreshEmails").on('click', function () {
+            // $("#emails").empty()
+            $("#emails").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
+            $("#emails").load("{!! route('mailbox.emails') !!}")
+        });
+
+        $(document).on('click', 'a.readEmail', function (e) {
+            var id = $(this).attr("data-id")
+            //console.log(id);
+            $("#emails").load("{!! route('mailbox.email') !!}" + "/" + id)
+        });
+
+        $("#emails").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
+        $("#emails").load("{!! route('mailbox.emails') !!}")
+
+
+    </script>
+
 @stop

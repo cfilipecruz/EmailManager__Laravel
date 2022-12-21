@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Processo;
 use Illuminate\Http\Request;
 
 class MeusProcessosController extends Controller
@@ -23,6 +24,8 @@ class MeusProcessosController extends Controller
      */
     public function meusprocessos()
     {
-        return view('meusprocessos');
+        $processos = Processo::all();
+      //  dd($processos);
+        return view('meusprocessos') ->with(['processos'=>$processos]);
     }
 }

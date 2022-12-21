@@ -10,125 +10,150 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <div class="row">
-        <div class="col-md-3">
-            <section class="content-header">
-                <h1>
-                    Mailbox
-                    <small>13 new messages</small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Mailbox</li>
-                </ol>
-            </section>
-            <a href="compose.html" class="btn btn-primary btn-block margin-bottom">Compose</a>
-            <div class="box box-solid">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Folders</h3>
-                    <div class="box-tools">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                    </div>
+
+            <div class="os-content pt-3">
+                <h5>Customize AdminLTE</h5>
+                <hr class="mb-2">
+                <div class="mb-4"><input type="checkbox" value="1" class="mr-1"><span>Dark Mode</span></div>
+
+                <h6>Header Options</h6>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Fixed</span></div>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Dropdown Legacy Offset</span>
                 </div>
-                <div class="box-body no-padding">
-                    <ul class="nav nav-pills nav-stacked">
-                        <li class="active"><a href="#"><i class="fa fa-inbox"></i> Inbox
-                                <span class="label label-primary pull-right">12</span></a></li>
-                        <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
-                        <li><a href="#"><i class="fa fa-file-text-o"></i> Drafts</a></li>
-                        <li><a href="#"><i class="fa fa-filter"></i> Junk <span
-                                    class="label label-warning pull-right">65</span></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
-                    </ul>
+                <div class="mb-4"><input type="checkbox" value="1" class="mr-1"><span>No border</span></div>
+
+                <h6>Sidebar Options</h6>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Collapsed</span></div>
+                <div class="mb-1"><input type="checkbox" value="1" checked="checked" class="mr-1"><span>Fixed</span>
                 </div>
 
-            </div>
-
-            <div class="box box-solid">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Labels</h3>
-                    <div class="box-tools">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                    </div>
+                <div class="mb-1"><input type="checkbox" value="1" checked="checked"
+                                         class="mr-1"><span>Sidebar Mini</span></div>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Sidebar Mini MD</span></div>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Sidebar Mini XS</span></div>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Nav Flat Style</span></div>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Nav Legacy Style</span></div>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Nav Compact</span></div>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Nav Child Indent</span></div>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Nav Child Hide on Collapse</span>
                 </div>
-                <div class="box-body no-padding">
-                    <ul class="nav nav-pills nav-stacked">
-                        <li><a href="#"><i class="fa fa-circle-o text-red"></i> Important</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> Promotions</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-light-blue"></i> Social</a></li>
-                    </ul>
-                </div>
+                <div class="mb-4"><input type="checkbox" value="1"
+                                         class="mr-1"><span>Disable Hover/Focus Auto-Expand</span></div>
+                <h6>Footer Options</h6>
+                <div class="mb-4"><input type="checkbox" value="1" class="mr-1"><span>Fixed</span></div>
+                <h6>Small Text Options</h6>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Body</span></div>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Navbar</span></div>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Brand</span></div>
+                <div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Sidebar Nav</span></div>
+                <div class="mb-4"><input type="checkbox" value="1" class="mr-1"><span>Footer</span></div>
 
-            </div>
+                <h6>Navbar Variants</h6>
+                    <select class="custom-select mb-3 text-light border-0 bg-white">
+                        <option class="bg-primary">Primary</option>
+                        <option class="bg-secondary">Secondary</option>
+                        <option class="bg-info">Info</option>
+                        <option class="bg-success">Success</option>
+                        <option class="bg-danger">Danger</option>
+                        <option class="bg-indigo">Indigo</option>
+                        <option class="bg-purple">Purple</option>
+                        <option class="bg-pink">Pink</option>
+                        <option class="bg-navy">Navy</option>
+                        <option class="bg-lightblue">Lightblue</option>
+                        <option class="bg-teal">Teal</option>
+                        <option class="bg-cyan">Cyan</option>
+                        <option class="bg-dark">Dark</option>
+                        <option class="bg-gray-dark">Gray dark</option>
+                        <option class="bg-gray">Gray</option>
+                        <option class="bg-light">Light</option>
+                        <option class="bg-warning">Warning</option>
+                        <option class="bg-white">White</option>
+                        <option class="bg-orange">Orange</option>
+                    </select></div>
+                <h6>Accent Color Variants</h6>
+                <select class="custom-select mb-3 border-0">
+                    <option>None Selected</option>
+                    <option class="bg-primary">Primary</option>
+                    <option class="bg-warning">Warning</option>
+                    <option class="bg-info">Info</option>
+                    <option class="bg-danger">Danger</option>
+                    <option class="bg-success">Success</option>
+                    <option class="bg-indigo">Indigo</option>
+                    <option class="bg-lightblue">Lightblue</option>
+                    <option class="bg-navy">Navy</option>
+                    <option class="bg-purple">Purple</option>
+                    <option class="bg-fuchsia">Fuchsia</option>
+                    <option class="bg-pink">Pink</option>
+                    <option class="bg-maroon">Maroon</option>
+                    <option class="bg-orange">Orange</option>
+                    <option class="bg-lime">Lime</option>
+                    <option class="bg-teal">Teal</option>
+                    <option class="bg-olive">Olive</option>
+                </select><h6>Dark Sidebar Variants</h6>
 
-        </div>
+                <select class="custom-select mb-3 text-light border-0 bg-primary">
+                    <option>None Selected</option>
+                    <option class="bg-primary">Primary</option>
+                    <option class="bg-warning">Warning</option>
+                    <option class="bg-info">Info</option>
+                    <option class="bg-danger">Danger</option>
+                    <option class="bg-success">Success</option>
+                    <option class="bg-indigo">Indigo</option>
+                    <option class="bg-lightblue">Lightblue</option>
+                    <option class="bg-navy">Navy</option>
+                    <option class="bg-purple">Purple</option>
+                    <option class="bg-fuchsia">Fuchsia</option>
+                    <option class="bg-pink">Pink</option>
+                    <option class="bg-maroon">Maroon</option>
+                    <option class="bg-orange">Orange</option>
+                    <option class="bg-lime">Lime</option>
+                    <option class="bg-teal">Teal</option>
+                    <option class="bg-olive">Olive</option>
+                </select><h6>Light Sidebar Variants</h6>
 
-        <div class="col-md-9">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Inbox</h3>
-                    <div class="box-tools pull-right">
-                        <div class="has-feedback">
-                            <input type="text" class="form-control input-sm" placeholder="Search Mail">
-                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                        </div>
-                    </div>
+                <select class="custom-select mb-3 border-0">
+                    <option>None Selected</option>
+                    <option class="bg-primary">Primary</option>
+                    <option class="bg-warning">Warning</option>
+                    <option class="bg-info">Info</option>
+                    <option class="bg-danger">Danger</option>
+                    <option class="bg-success">Success</option>
+                    <option class="bg-indigo">Indigo</option>
+                    <option class="bg-lightblue">Lightblue</option>
+                    <option class="bg-navy">Navy</option>
+                    <option class="bg-purple">Purple</option>
+                    <option class="bg-fuchsia">Fuchsia</option>
+                    <option class="bg-pink">Pink</option>
+                    <option class="bg-maroon">Maroon</option>
+                    <option class="bg-orange">Orange</option>
+                    <option class="bg-lime">Lime</option>
+                    <option class="bg-teal">Teal</option>
+                    <option class="bg-olive">Olive</option>
+                </select><h6>Brand Logo Variants</h6>
 
-                </div>
-                <div class="box-body no-padding">
-                    <div class="mailbox-controls">
+                <select class="custom-select mb-3 border-0">
+                    <option>None Selected</option>
+                    <option class="bg-primary">Primary</option>
+                    <option class="bg-secondary">Secondary</option>
+                    <option class="bg-info">Info</option>
+                    <option class="bg-success">Success</option>
+                    <option class="bg-danger">Danger</option>
+                    <option class="bg-indigo">Indigo</option>
+                    <option class="bg-purple">Purple</option>
+                    <option class="bg-pink">Pink</option>
+                    <option class="bg-navy">Navy</option>
+                    <option class="bg-lightblue">Lightblue</option>
+                    <option class="bg-teal">Teal</option>
+                    <option class="bg-cyan">Cyan</option>
+                    <option class="bg-dark">Dark</option>
+                    <option class="bg-gray-dark">Gray dark</option>
+                    <option class="bg-gray">Gray</option>
+                    <option class="bg-light">Light</option>
+                    <option class="bg-warning">Warning</option>
+                    <option class="bg-white">White</option>
+                    <option class="bg-orange">Orange</option>
+                    <a href="#">clear</a></select></div>
 
-                        <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
-                        </button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                        </div>
-
-                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                        <div class="pull-right">
-                            1-50/200
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm"><i
-                                        class="fa fa-chevron-left"></i></button>
-                                <button type="button" class="btn btn-default btn-sm"><i
-                                        class="fa fa-chevron-right"></i></button>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="table-responsive mailbox-messages">
-                        <table class="table table-hover table-striped">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false"
-                                            style="position: relative;"><input type="checkbox"
-                                                style="position: absolute; opacity: 0;"><ins class="iCheck-helper"
-                                                style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                        </div>
-                                    </td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a>
-                                    </td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to
-                                        this problem...
-                                    </td>
-                                    <td class="mailbox-attachment"></td>
-                                    <td class="mailbox-date">5 mins ago</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @stop
 
 @section('css')

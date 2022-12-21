@@ -1,5 +1,3 @@
-@extends('app')
-
 @if (session('status'))
     <div class="alert alert-success" role="alert">
         {{ session('status') }}
@@ -9,16 +7,11 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
-@push('css')
-
-@endpush
-
+@section('title', 'Mail Manager')
 @section('content')
-
-@endsection
-
-
-@push('js')
-
-@endpush
+<ul class="list-group">
+  @foreach($processos as $processo)
+    <li class="list-group-item list-group-item-primary">{{$processo->descricao}}</li>
+    @endforeach
+  </ul>
+  @stop
