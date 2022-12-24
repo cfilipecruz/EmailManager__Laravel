@@ -2,14 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departamento;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Ddeboer\Imap\Server;
 use Ddeboer\Imap\SearchExpression;
 use Ddeboer\Imap\Search\Email\To;
 use Ddeboer\Imap\Search\Text\Body;
 
+
 class MailBoxController extends Controller
 {
+    private $server;
+    private $serverOutlook;
+    private $username;
+    private $usernameOutlook;
+    private $password;
+    private $passwordOutlook;
+    private $connection;
+    private $connectionOutlook;
+    private $mailbox;
+    private $mailboxOutlook;
+
     /**
      * Create a new controller instance.
      *
@@ -17,6 +31,20 @@ class MailBoxController extends Controller
      */
     public function __construct()
     {
+        $this->server =  new Server('imap.gmail.com');
+        $this->serverOutlook = new Server('outlook.office365.com');
+
+        $this->username =   env('EMAIL','');
+        $this->password =   env('PASSWORD','');
+        $this->usernameOutlook = env('EMAIL_OUTLOOK', '');
+        $this->passwordOutlook = ENV('PASSWORD_OUTLOOK', '');
+
+        // $connection is instance of \Ddeboer\Imap\Connection
+        $this->connection =  $this->server->authenticate($this->username, $this->password);
+        $this->connectionOutlook = $this->serverOutlook->authenticate($this->usernameOutlook, $this->passwordOutlook);
+
+        $this->mailbox = $this->connection->getMailbox('INBOX');
+        $this->mailboxOutlook = $this->connectionOutlook->getMailbox('Inbox');
         $this->middleware('auth');
     }
 
@@ -31,17 +59,8 @@ class MailBoxController extends Controller
     }
 
     public function emails(){
-        $server = new Server('imap.gmail.com');
 
-        $username = env('EMAIL','');
-        $password = ENV('PASSWORD','');
-
-        // $connection is instance of \Ddeboer\Imap\Connection
-        $connection = $server->authenticate($username, $password);
-
-        $mailbox = $connection->getMailbox('INBOX');
-
-        $messages = $mailbox->getMessages(
+        $messages = $this->mailbox->getMessages(
             null,
             \SORTDATE, // Sort criteria
             true // Descending order
@@ -55,17 +74,8 @@ class MailBoxController extends Controller
     }
 
     public function emailsnew(){
-        $server = new Server('imap.gmail.com');
 
-        $username = env('EMAIL','');
-        $password = ENV('PASSWORD','');
-
-        // $connection is instance of \Ddeboer\Imap\Connection
-        $connection = $server->authenticate($username, $password);
-
-        $mailbox = $connection->getMailbox('INBOX');
-
-        $messages = $mailbox->getMessages(
+        $messages = $this->mailbox->getMessages(
             null,
             \SORTDATE, // Sort criteria
             true // Descending order
@@ -79,17 +89,8 @@ class MailBoxController extends Controller
     }
 
     public function emailsseen(){
-        $server = new Server('imap.gmail.com');
 
-        $username = env('EMAIL','');
-        $password = ENV('PASSWORD','');
-
-        // $connection is instance of \Ddeboer\Imap\Connection
-        $connection = $server->authenticate($username, $password);
-
-        $mailbox = $connection->getMailbox('INBOX');
-
-        $messages = $mailbox->getMessages(
+        $messages = $this->mailbox->getMessages(
             null,
             \SORTDATE, // Sort criteria
             true // Descending order
@@ -104,22 +105,13 @@ class MailBoxController extends Controller
 
 
     public function emailssearch(){
-        $server = new Server('imap.gmail.com');
-
-        $username = env('EMAIL','');
-        $password = ENV('PASSWORD','');
-
-        // $connection is instance of \Ddeboer\Imap\Connection
-        $connection = $server->authenticate($username, $password);
-
-        $mailbox = $connection->getMailbox('INBOX');
 
         $search = new SearchExpression();
 
         $search->addCondition(new To('me@here.com'));
         $search->addCondition(new Body('contents'));
 
-        $messages = $mailbox->getMessages($search);
+        $messages = $this->mailbox->getMessages($search);
 
         $messagesNumber=$messages->count();
 
@@ -129,18 +121,17 @@ class MailBoxController extends Controller
     }
 
     public function email($id){
-        $server = new Server('imap.gmail.com');
 
-        $username = env('EMAIL','');
-        $password = ENV('PASSWORD','');
+        $message =  $this->mailbox->getMessage($id);
 
-        // $connection is instance of \Ddeboer\Imap\Connection
-        $connection = $server->authenticate($username, $password);
+        $funcionarios = User::all();
+        $departamentos = Departamento::all();
+        $this->mailbox->setFlag('\\Seen', $id);
+        //$this->mailbox->clearFlag('\\Seen', $id);
 
-        $mailbox = $connection->getMailbox('INBOX');
-        $message =  $mailbox->getMessage($id);
-
-        return view('mailbox.email')->with(['message'=>$message]);
+        return view('mailbox.email')->with(['message'=>$message,
+                                                'funcionarios'=>$funcionarios,
+                                                'departamentos'=>$departamentos]);
     }
 }
 

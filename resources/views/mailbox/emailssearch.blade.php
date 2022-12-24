@@ -3,9 +3,9 @@
         <tbody>
         <tr>
             <td>id</td>
+            <td>Status</td>
             <td>Email</td>
             <td>Subject</td>
-            <td>content</td>
             <td>date</td>
         </tr>
         <div class="box box-primary">

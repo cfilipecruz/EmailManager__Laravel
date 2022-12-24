@@ -13,7 +13,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        \Gate::define('viewEmails', function ($user) {
+            if ($user->nivelpermissao_id >= 2) {
+                return true;
+            }
+            return false;
+        });
     }
 
     /**

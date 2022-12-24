@@ -12,7 +12,7 @@
 
         <div class="mailbox-read-message">
             <h5>Conteudo: </h5>
-            <p> {{$message->getBodyText()}}</p>
+            <p> {!! $message->getBodyHtml() !!}</p>
         </div>
     </div>
 
@@ -44,52 +44,52 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-
+                <form method="post" action="{{route('meusprocessos.save')}}">
+                    @csrf
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label"> Nome:</label>
-                        <input type="text" class="form-control" id="recipient-name" required>
+                        <input name="nome" type="text" class="form-control" value="" id="recipient-name" required>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label"> Descrição:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
+                        <textarea name="descricao" class="form-control"  value="" id="message-text" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label"> Funcionário</label>
-                        <select class="form-select" aria-label="Default select example" required>
-                            <option selected>Default</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select name="funcionario" class="form-select"  aria-label="Default select example" required>
+                            @foreach($funcionarios as $funcionario)
+                                <option  value="{{$funcionario->id}}">{{$funcionario->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label"> Departamento</label>
-                        <select class="form-select" aria-label="Default select example" required>
-                            <option selected>Default</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select name="departamento" class="form-select" aria-label="Default select example" required>
+                            @foreach($departamentos as $departamento)
+                                <option  value="{{$departamento->id}}">{{$departamento->nome}}</option>
+                            @endforeach
+
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label"> Remetente:</label>
-                        <input type="text" class="form-control" id="recipient-name" placeholder="{{$message->getFrom()->getAddress()}}" disabled>
+                        <input name="remetente" type="text" class="form-control" id="recipient-name" value="{{$message->getFrom()->getAddress()}}" placeholder="{{$message->getFrom()->getAddress()}}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Assunto: </label>
-                        <textarea class="form-control" id="message-text" placeholder="{{$message->getSubject()}}" disabled></textarea>
+                        <textarea name="assunto" class="form-control" id="message-text" value="{{$message->getSubject()}}" placeholder="{{$message->getSubject()}}" disabled></textarea>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Conteudo: </label>
-                        <textarea class="form-control" id="message-text"placeholder="{{$message->getBodyText()}}" disabled></textarea>
+                        <textarea name="conteudo" class="form-control" id="message-text" value="{{$message->getBodyText()}}" placeholder="{{$message->getBodyText()}}" disabled></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Criar Processo</button>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
-            </div>
+
         </div>
     </div>
 </div>

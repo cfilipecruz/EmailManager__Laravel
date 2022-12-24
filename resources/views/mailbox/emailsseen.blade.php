@@ -3,9 +3,9 @@
         <tbody>
         <tr>
             <td>id</td>
+            <td>Estado</td>
             <td>Email</td>
             <td>Subject</td>
-            <td>content</td>
             <td>date</td>
         </tr>
         <div class="box box-primary">
@@ -33,27 +33,27 @@
                 </div>
 
                 @foreach ($messages as $message)
-
-                    <tr>
-                        <td>
-                            {{$message->getNumber()}}
-
-                        </td>
-                        <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a>
-                        </td>
-                        <td class="mailbox-name"><a style="cursor:pointer;" class="readEmail"
-                                                    data-id="{{$message->getNumber()}}">
-                                {{$message->getFrom()->getAddress()}}
-                            </a></td>
-                        <td class="mailbox-subject"><b>
-                                {{$message->getSubject()}}
-                            </b>
-
-                        </td>
-                        <td class="mailbox-date">
-                            {{$message->getDate()->format('d/m/Y')}}
-                        </td>
-                    </tr>
+                    @if($message->isSeen())
+                        <tr class="bg-secondary text-white" >
+                            <td>
+                                {{$message->getNumber()}}
+                            </td>
+                            <td>
+                                <i style="cursor: pointer;" class="far fa-envelope-open"></i>
+                            </td>
+                            <td  class="mailbox-name text-white"><a style="cursor:pointer;" class="readEmail text-white"
+                                                                    data-id="{{$message->getNumber()}}">
+                                    {{$message->getFrom()->getAddress()}}
+                                </a></td>
+                            <td class="mailbox-subject"><b>
+                                    {{$message->getSubject()}}
+                                </b>
+                            </td>
+                            <td class="mailbox-date">
+                                {{$message->getDate()->format('d/m/Y')}}
+                            </td>
+                        </tr>
+        @endif
         @endforeach
         </tbody>
     </table>

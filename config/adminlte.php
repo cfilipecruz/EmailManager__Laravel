@@ -310,13 +310,14 @@ return [
             'text'        => 'Meus Processos',
             'url'         => 'meusprocessos',
             'icon'        => 'fas fa-fw fa-clipboard-list',
-            'label'       => 4,
+          //  'label'       => 4,
             'label_color' => 'success',
         ],
         [
             'text' => 'mailbox',
             'url'  => 'mailbox',
             'icon' => 'fas fa-fw  fa-envelope',
+            'can' => 'viewEmails',
         ],
         ['header' => 'account_settings'],
         [
@@ -324,7 +325,7 @@ return [
             'url'  => 'perfil',
             'icon' => 'fas fa-fw fa-user',
         ],
-     
+
 
        /* [
             'text'    => 'multilevel',
