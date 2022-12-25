@@ -25,14 +25,14 @@
                 <div class="card-body p-0">
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item active">
-                            <a id="NewEmails" class="nav-link">
+                            <a style="cursor: pointer;" id="NewEmails" class="nav-link">
                                 <i  class="far fa-envelope"></i> Novos
                                 <span class="badge bg-primary float-right">
                                 </span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="seenEmails" class="nav-link">
+                            <a style="cursor: pointer;"  id="seenEmails" class="nav-link">
                                 <i  class="far fa-envelope-open"></i> Lidos
                             </a>
                         </li>

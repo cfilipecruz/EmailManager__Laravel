@@ -70,7 +70,7 @@ class MailBoxController extends Controller
 
         return view('mailbox.emails')->with(['messages'=>$messages,
                                       'messagesNumber'=>$messagesNumber
-                                    ]);
+                                        ]);
     }
 
     public function emailsnew(){
@@ -123,15 +123,18 @@ class MailBoxController extends Controller
     public function email($id){
 
         $message =  $this->mailbox->getMessage($id);
-
         $funcionarios = User::all();
         $departamentos = Departamento::all();
         $this->mailbox->setFlag('\\Seen', $id);
+        $attachments = $message->getAttachments();
+        //dd($message);
+        //echo($message);
         //$this->mailbox->clearFlag('\\Seen', $id);
-
         return view('mailbox.email')->with(['message'=>$message,
+                                                'attachments'=>$attachments,
                                                 'funcionarios'=>$funcionarios,
-                                                'departamentos'=>$departamentos]);
+                                                'departamentos'=>$departamentos
+        ]);
     }
 }
 

@@ -44,21 +44,31 @@ Route::get('/meusprocessos', [App\Http\Controllers\MeusProcessosController::clas
 
 Route::get('/meusprocessos/processos', [App\Http\Controllers\MeusProcessosController::class, 'processos'])->name('meusprocessos.processos');
 
-Route::get('/meusprocessos/processosConfirmado', [App\Http\Controllers\MeusProcessosController::class, 'processosConfirmado'])->name('processos.processosConfirmado');
+Route::get('/meusprocessos/processosConfirmado', [App\Http\Controllers\MeusProcessosController::class, 'processosConfirmados'])->name('meusprocessos.processosConfirmados');
 
-Route::get('/meusprocessos/processosProcessado', [App\Http\Controllers\MeusProcessosController::class, 'processosProcessado'])->name('processos.processosProcessado');
+Route::get('/meusprocessos/processosProcessados', [App\Http\Controllers\MeusProcessosController::class, 'processosProcessados'])->name('meusprocessos.processosProcessados');
 
-Route::get('/meusprocessos/processosAberto', [App\Http\Controllers\MeusProcessosController::class, 'processosAberto'])->name('processos.processosAberto');
+Route::get('/meusprocessos/processosAbertos', [App\Http\Controllers\MeusProcessosController::class, 'processosAbertos'])->name('meusprocessos.processosAbertos');
 
-Route::get('/meusprocessos/processosAnulado', [App\Http\Controllers\MeusProcessosController::class, 'processosAnulado'])->name('processos.processosAnulado');
+Route::get('/meusprocessos/processosAnulados', [App\Http\Controllers\MeusProcessosController::class, 'processosAnulados'])->name('meusprocessos.processosAnulados');
 
-Route::get('/meusprocessos/processosConcluido', [App\Http\Controllers\MeusProcessosController::class, 'processosConcluido'])->name('processos.processosConcluido');
+Route::get('/meusprocessos/processosConcluidos', [App\Http\Controllers\MeusProcessosController::class, 'processosConcluidos'])->name('meusprocessos.processosConcluidos');
 
 Route::get('/meusprocessos/processo/{id?}', [App\Http\Controllers\MeusProcessosController::class, 'processo'])->name('meusprocessos.processo');
 
 Route::post('/meusprocessos/save', [\App\Http\Controllers\MeusProcessosController::class, 'meusprocessosSave'])->name('meusprocessos.save');
 
+Route::get('perfil',[PerfilController::class,'index'])->name('perfil');
+
+
+//Funcionarios------------------------------------------------------------------------------------
+
+Route::get('/funcionarioslist', [\App\Http\Controllers\FuncionariosController::class,'funcionarioslist'])->name('funcionarioslist');
+
+Route::get('/admin/funcionarios', [\App\Http\Controllers\FuncionariosController::class,'funcionarios'])->name('admin.funcionarios');
+
 Route::middleware(['auth'])->group(function () {
-    Route::get('perfil',[PerfilController::class,'index'])->name('perfil');
+    Route::get('funcionarios',[PerfilController::class,'funcionarios'])->name('funcionarios');
     Route::post('perfil/{user}',[PerfilController::class,'update'])->name('perfil.update');
 });
+

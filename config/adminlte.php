@@ -325,6 +325,15 @@ return [
             'url'  => 'perfil',
             'icon' => 'fas fa-fw fa-user',
         ],
+        ['header' => 'Admin Options',
+            'can' => 'admin',
+        ],
+        [
+            'text' => 'Gerir Funcionários',
+            'url'  => 'funcionarioslist',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => 'admin',
+        ],
 
 
        /* [

@@ -26,27 +26,27 @@
                 <div class="card-body p-0">
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item active bg-primary">
-                            <a id="ProcessosConfirmados" class="nav-link">
+                            <a  style="cursor: pointer;" id="processosConfirmados" class="nav-link">
                                 <i class="fas fa-inbox"></i> Confirmados
                             </a>
                         </li>
                         <li class="nav-item bg-info">
-                            <a id="ProcessosProcessados" class="nav-link">
+                            <a  style="cursor: pointer;"  id="processosProcessados" class="nav-link">
                                 <i  class="fas fa-clipboard-check"></i> Processados
                             </a>
                         </li>
                         <li class="nav-item  bg-secondary">
-                            <a id="ProcessosAbertos" class="nav-link">
+                            <a  style="cursor: pointer;"  id="processosAbertos" class="nav-link">
                                 <i class="fas fa-folder-open"></i> Abertos
                             </a>
                         </li>
                         <li class="nav-item  bg-danger">
-                            <a id="ProcessosAnulados" class="nav-link">
+                            <a  style="cursor: pointer;"  id="processosAnulados" class="nav-link">
                                 <i  class="fas fa-ban"></i> Anulados
                             </a>
                         </li>
                         <li class="nav-item  bg-success">
-                            <a id="ProcessosConcluidos" class="nav-link">
+                            <a  style="cursor: pointer;"  id="processosConcluidos" class="nav-link">
                                 <i  class="fas fa-check"></i> Concluidos
                             </a>
                         </li>
@@ -103,21 +103,33 @@
     <script>
 
         $("#refreshProcessos").on('click', function () {
-            // $("#emails").empty()
-            $("#emails").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
-            $("#emails").load("{!! route('meusprocessos.processos') !!}")
+            $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
+            $("#processos").load("{!! route('meusprocessos.processos') !!}")
         });
 
-        $("#ProcessosConfirmados").on('click', function () {
-            // $("#emails").empty()
-            $("#emails").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
-            $("#emails").load("{!! route('mailbox.emailsnew') !!}")
+        $("#processosConfirmados").on('click', function () {
+            $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
+            $("#processos").load("{!! route('meusprocessos.processosConfirmados') !!}")
         });
 
-        $("#ProcessosProcessados").on('click', function () {
-            // $("#emails").empty()
-            $("#emails").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
-            $("#emails").load("{!! route('mailbox.emailsseen') !!}")
+        $("#processosProcessados").on('click', function () {
+            $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
+            $("#processos").load("{!! route('meusprocessos.processosProcessados') !!}")
+        });
+
+        $("#processosAbertos").on('click', function () {
+            $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
+            $("#processos").load("{!! route('meusprocessos.processosAbertos') !!}")
+        });
+
+        $("#processosAnulados").on('click', function () {
+            $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
+            $("#processos").load("{!! route('meusprocessos.processosAnulados') !!}")
+        });
+
+        $("#processosConcluidos").on('click', function () {
+            $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
+            $("#processos").load("{!! route('meusprocessos.processosConcluidos') !!}")
         });
 
         $(document).on('click', 'a.readProcesso', function (e) {

@@ -34,9 +34,50 @@ class MeusProcessosController extends Controller
         $processos = Processo::where('funcionario_id',\auth()->user()->id)->get();
         $departamentos = Departamento::all();
        // $processos =  Processo::all();
-        //  dd($processos);
+          //dd($processos);
         return view('meusprocessos.processos') ->with(['processos'=>$processos,
                                                             'departamentos'=>$departamentos]);
+    }
+
+    public function processosConfirmados(){
+        $processos = Processo::where('funcionario_id',\auth()->user()->id)->get();
+        $departamentos = Departamento::all();
+        // $processos =  Processo::all();
+        //  dd($processos);
+        return view('meusprocessos.processosConfirmados') ->with(['processos'=>$processos,
+            'departamentos'=>$departamentos]);
+    }
+    public function processosProcessados(){
+        $processos = Processo::where('funcionario_id',\auth()->user()->id)->get();
+        $departamentos = Departamento::all();
+        // $processos =  Processo::all();
+        //  dd($processos);
+        return view('meusprocessos.processosProcessados') ->with(['processos'=>$processos,
+            'departamentos'=>$departamentos]);
+    }
+    public function processosAbertos(){
+        $processos = Processo::where('funcionario_id',\auth()->user()->id)->get();
+        $departamentos = Departamento::all();
+        // $processos =  Processo::all();
+        //  dd($processos);
+        return view('meusprocessos.processosAbertos') ->with(['processos'=>$processos,
+            'departamentos'=>$departamentos]);
+    }
+    public function processosAnulados(){
+        $processos = Processo::where('funcionario_id',\auth()->user()->id)->get();
+        $departamentos = Departamento::all();
+        // $processos =  Processo::all();
+        //  dd($processos);
+        return view('meusprocessos.processosAnulados') ->with(['processos'=>$processos,
+            'departamentos'=>$departamentos]);
+    }
+    public function processosConcluidos(){
+        $processos = Processo::where('funcionario_id',\auth()->user()->id)->get();
+        $departamentos = Departamento::all();
+        // $processos =  Processo::all();
+        //  dd($processos);
+        return view('meusprocessos.processosConcluidos') ->with(['processos'=>$processos,
+            'departamentos'=>$departamentos]);
     }
 
     public function meusprocessosSave(Request $request){
@@ -62,7 +103,7 @@ class MeusProcessosController extends Controller
         $funcionarios = User::all();
         $departamentos = Departamento::all();
 
-        return view('mailbox.email')->with(['processo'=>$processo,
+        return view('meusprocessos.processo')->with(['processo'=>$processo,
             'funcionarios'=>$funcionarios,
             'departamentos'=>$departamentos]);
     }
