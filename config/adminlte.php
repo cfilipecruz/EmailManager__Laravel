@@ -30,8 +30,8 @@ return [
     |
     */
 
-    'use_ico_only' => false,
-    'use_full_favicon' => true,
+    'use_ico_only' => true,
+    'use_full_favicon' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -110,8 +110,8 @@ return [
         'enabled' => true,
         'img' => [
             'path' => 'vendor/adminlte/dist/img/emailCon.png',
-            'alt' => 'AdminLTE Preloader Image',
-            'effect' => 'animation_wobble',
+            'alt' => 'Email icon',
+            'effect' => 'animation__shake',
             'width' => 100,
             'height' => 100,
         ],
@@ -331,7 +331,7 @@ return [
         [
             'text' => 'Gerir Funcionários',
             'url'  => 'funcionarioslist',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-list',
             'can' => 'admin',
         ],
 

@@ -58,6 +58,10 @@ Route::get('/meusprocessos/processo/{id?}', [App\Http\Controllers\MeusProcessosC
 
 Route::post('/meusprocessos/save', [\App\Http\Controllers\MeusProcessosController::class, 'meusprocessosSave'])->name('meusprocessos.save');
 
+Route::post('/meusprocessos/update/{id?}', [\App\Http\Controllers\MeusProcessosController::class, 'update'])->name('meusprocessos.update');
+
+Route::post('/meusprocessos/delete/{id?}', [\App\Http\Controllers\MeusProcessosController::class, 'delete'])->name('meusprocessos.delete');
+
 Route::get('perfil',[PerfilController::class,'index'])->name('perfil');
 
 
@@ -66,6 +70,10 @@ Route::get('perfil',[PerfilController::class,'index'])->name('perfil');
 Route::get('/funcionarioslist', [\App\Http\Controllers\FuncionariosController::class,'funcionarioslist'])->name('funcionarioslist');
 
 Route::get('/admin/funcionarios', [\App\Http\Controllers\FuncionariosController::class,'funcionarios'])->name('admin.funcionarios');
+
+Route::get('/admin/funcionario/{id?}',[\App\Http\Controllers\FuncionariosController::class, 'funcionario'])->name('admin.funcionario');
+
+//Route::post('/admin/funcionario/{user}',[App])
 
 Route::middleware(['auth'])->group(function () {
     Route::get('funcionarios',[PerfilController::class,'funcionarios'])->name('funcionarios');

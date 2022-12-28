@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departamento;
+use App\Models\Processo;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -35,5 +36,18 @@ class FuncionariosController extends Controller
         return view('admin.funcionarios')->with(['funcionarios'=>$funcionarios,
                                                         'departamentos'=>$departamentos
                                                         ]);
+    }
+
+    public function funcionario($id){
+
+        $processo = Processo::all();
+        $funcionario = User::find($id);
+        $departamentos = Departamento::all();
+
+
+        return view('admin.funcionario')->with(['processo'=>$processo,
+            'funcionario'=>$funcionario,
+            'departamentos'=>$departamentos
+        ]);
     }
 }

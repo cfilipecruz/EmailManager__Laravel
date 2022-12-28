@@ -25,9 +25,11 @@
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#attach">
                             Abrir
                         </button>
-                            <a class="btn btn-default btn-sm float-right">
+                        <a class="btn btn-default btn-sm float-right">
+                                <?php
                                 Storage::put($attachment->getFilename(), $attachment->getDecodedContent());
-                                <i class="fas fa-cloud-download-alt"></i></a>
+                                ?>
+                            <i class="fas fa-cloud-download-alt"></i></a>
                     </div>
                 </li>
             @endforeach
@@ -46,7 +48,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p></p>
+                <p>
+                    <?php
+                    Storage::put($attachment->getFilename(), $attachment->getDecodedContent());
+                    ?>
+                </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

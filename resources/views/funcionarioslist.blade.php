@@ -60,9 +60,9 @@
 
         $(document).on('click', 'a.verFuncionario', function (e) {
             var id = $(this).attr("data-id")
-            //console.log(id);
-            $("#emails").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
-            $("#emails").load("{!! route('mailbox.email') !!}" + "/" + id)
+           // console.log(id);
+            $("#funcionarios").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
+            $("#funcionarios").load("{!! route('admin.funcionario') !!}" + "/" + id)
         });
 
         $("#funcionarios").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")

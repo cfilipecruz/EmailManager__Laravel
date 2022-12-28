@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departamento;
+use App\Models\Estado;
 use App\Models\Processo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -98,13 +99,36 @@ class MeusProcessosController extends Controller
 
     public function processo($id){
 
-        $processo = Processo::where($id);
+        $processo = Processo::find($id);
 
         $funcionarios = User::all();
         $departamentos = Departamento::all();
+        $estados = Estado::all();
 
         return view('meusprocessos.processo')->with(['processo'=>$processo,
             'funcionarios'=>$funcionarios,
+            'estados'=>$estados,
             'departamentos'=>$departamentos]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $processo = Processo::find($id);
+        $processo->nome= $request->nome;
+        $processo->descricao= $request->descricao;
+        $processo->funcionario_id= $request->funcionario;
+        $processo->departamento_id= $request->departamento;
+        $processo->estado_id= $request->estado;
+
+        $processo->update();
+
+        return redirect()->back();
+    }
+    public function delete($id){
+
+        $processo = Processo::find($id);
+        $processo->delete();
+
+        return view('meusprocessos');
     }
 }

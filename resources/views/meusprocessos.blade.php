@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <div class="row m-1 mt-3">
         <div class="col-md-3">
-            <a id="refreshProcessos" class="btn btn-primary btn-block mb-3">Refresh Emails</a>
+            <a id="refreshProcessos" class="btn btn-primary btn-block mb-3">Atualizar Processos</a>
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Pastas</h3>

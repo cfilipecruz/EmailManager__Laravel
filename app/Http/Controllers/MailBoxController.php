@@ -104,7 +104,7 @@ class MailBoxController extends Controller
     }
 
 
-    public function emailssearch(){
+    public function emailssearch($name){
 
         $search = new SearchExpression();
 
