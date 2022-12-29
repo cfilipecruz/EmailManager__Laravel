@@ -129,6 +129,6 @@ class MeusProcessosController extends Controller
         $processo = Processo::find($id);
         $processo->delete();
 
-        return view('meusprocessos');
+        return redirect()->back();
     }
 }

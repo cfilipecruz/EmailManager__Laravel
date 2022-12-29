@@ -34,15 +34,15 @@
 
                 @foreach ($messages as $message)
                     @if($message->isSeen())
-                        <tr class="bg-secondary text-white" >
+                        <tr class="bg-secondary text-white">
                             <td>
                                 {{$message->getNumber()}}
                             </td>
                             <td>
                                 <i style="cursor: pointer;" class="far fa-envelope-open"></i>
                             </td>
-                            <td  class="mailbox-name text-white"><a style="cursor:pointer;" class="readEmail text-white"
-                                                                    data-id="{{$message->getNumber()}}">
+                            <td class="mailbox-name text-white"><a style="cursor:pointer;" class="readEmail text-white"
+                                                                   data-id="{{$message->getNumber()}}">
                                     {{$message->getFrom()->getAddress()}}
                                 </a></td>
                             <td class="mailbox-subject"><b>

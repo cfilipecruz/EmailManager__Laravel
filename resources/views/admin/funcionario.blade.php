@@ -4,13 +4,17 @@
             <div class="col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                             alt="avatar"
                              class="rounded-circle img-fluid" style="width: 150px;">
                         <h5 class="my-3">{{$funcionario->username}}</h5>
                         <p class="text-muted mb-1">ID: {{$funcionario->id}}</p>
                         <div class="d-flex justify-content-center mb-2">
-                            <button type="button" class="btn btn-primary">Delete</button>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                            <button type="button" class="btn btn-danger m-1" data-toggle="modal" data-target="#modalDelete">
+                                Apagar
+                            </button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#updateFuncionario">
                                 Update
                             </button>
                         </div>
@@ -104,47 +108,86 @@
             </div>
         </div>
     </div>
+</section>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <form method="post" action="{{route('funcionario.update')}}">
-                @csrf
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label"> Nome:</label>
-                    <input name="nome" type="text" class="form-control" value="" id="recipient-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label"> Descrição:</label>
-                    <textarea name="descricao" class="form-control" value="" id="message-text" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label"> Funcionário</label>
-                    <select name="funcionario" class="form-select" aria-label="Default select example" required>
-                        @foreach($funcionarios as $funcionario)
-                            <option value="{{$funcionario->id}}">{{$funcionario->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label"> Departamento</label>
-                    <select name="departamento" class="form-select" aria-label="Default select example" required>
-                        @foreach($departamentos as $departamento)
-                            <option value="{{$departamento->id}}">{{$departamento->nome}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label"> Remetente:</label>
-                    <input name="remetente" type="text" class="form-control" id="recipient-name"
-                           value="{{$message->getFrom()->getAddress()}}"
-                           placeholder="{{$message->getFrom()->getAddress()}}" disabled>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Fazer Update</button>
-                </div>
-            </form>
+<div class="modal fade" id="updateFuncionario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{route('funcionario.update', $funcionario->id)}}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Username:</label>
+                        <input name="username" type="text" class="form-control" value="{{$funcionario->username}}"
+                               id="recipient-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label"> Nome Completo:</label>
+                        <input name="name" type="text" class="form-control" value="{{$funcionario->name}}"
+                               id="recipient-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label"> E-mail:</label>
+                        <input name="email" type="text" class="form-control" value="{{$funcionario->email}}"
+                               id="message-text" required></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label"> Nivel Permissão</label>
+                        <select name="permissao" class="form-select" aria-label="Default select example" required>
+                            @foreach($permissoes as $permissao)
+                                <option value="{{$permissao->id}}">{{$permissao->nome}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label"> Departamento</label>
+                        <select name="departamento" class="form-select" aria-label="Default select example" required>
+                            @foreach($departamentos as $departamento)
+                                <option value="{{$departamento->id}}">{{$departamento->nome}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Fazer Update</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</section>
+</div>
+
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form method="post" action="{{route('$funcionario.delete', $funcionario->id)}}">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tem a certeza que pretende Eliminar?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 ID:   {{$funcionario->id}}
+                Username:  {{$funcionario->username}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Apagar Processo</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+

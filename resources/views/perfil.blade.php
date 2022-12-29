@@ -9,129 +9,133 @@
 
 @section('title', 'Mail Manager')
 @section('content')
-
-<head>
-
-     <meta charset="UTF-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-     <meta name="description" content="">
-     <meta name="keywords" content="">
-     <meta name="author" content="">
-     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-     
-
-     <link rel="icon" href="../domain.png">
-   
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
-        <script src="https://kit.fontawesome.com/ccf24ce75c.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="/../css/bootstrap.min.css">
-    <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-
-     <!-- MAIN CSS -->
-     <link rel="stylesheet" href="../css/tooplate-gymso-style.css">
-
-</head>
-<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
-<div id="preloader" style=""></div>
-
-  <div class="col">
-    <div class="row">
-      <div class="col mb-3">
-        <div class="card">
-          <div class="card-body">
-            <div class="e-profile">
-              <div class="row">
-                <div class="col-12 col-sm-auto mb-3">
-                  <div class="mx-auto" style="width: 140px;">
-                  <form id="formAccountSettings" method="POST" action="{{ route('perfil.update',auth()->id()) }}" enctype="multipart/form-data" class="needs-validation" role="form" novalidate>
-                  @csrf
-                  <img src="{{asset(Auth::user()->avatar)}}" style="height:160px; width:160px; border-radius:50%; margin-right:5px; border: 2px solid red; border-color: gray;" >
-                    
-                  </div>
-                </div>
-                <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
-                  <div class="text-center text-sm-left mb-2 mb-sm-0">
-                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{ Auth::user()->name }}</h4>
-                    <p class="mb-0">{{ Auth::user()->email }}</p>
-                    <div class="text-muted"><small>Última vez Online: {{ Auth::user()->updated_at->format('d/m/Y') }}</small></div>
-                    <div class="mt-2">
-                       <button class="btn btn-dark" type="button" data-toggle="modal" data-target="#delete-user">Apagar Conta</button>
-                    </div>
-                  </div>
-                  <div class="text-center text-sm-right">
-                    <span class="badge badge-secondary">Cliente</span>
-                    <div class="text-muted"><small>Cliente desde {{ Auth::user()->created_at->format('d/m/Y') }}</small></div>
-                    <button class="btn btn-block btn-danger mt-4" onclick="location.href='{{ route('logout') }}'">
-                      <i class="fa fa-sign-out"></i>
-                      <span>Sair</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <ul class="nav nav-tabs">
-                <li class="nav-item"><a href="" class="active nav-link">Informações</a></li>
-              </ul>
-              <div class="tab-content pt-3">
-                <div class="tab-pane active">
-                    <div class="row">
-                      <div class="col">
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Nome</label>
-                              <input class="form-control" type="text" name="name" placeholder="" value="{{ auth()->user()->name }}">
-                            </div>
-                          </div>
-                        <div class="row">
-                          <div class="col mb-3">
-                            <div class="form-group">
-                              <label>Email</label>
-                              <input class="form-control" type="text" name="email" placeholder="" value="{{ auth()->user()->email }}">
-                            </div>
-                          </div>
+    <section style="background-color: #eee;">
+        <div class="row">
+            <div class="col-lg-4 mt-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                             alt="avatar"
+                             class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">{{$funcionario->username}}</h5>
+                        <p class="text-muted mb-1">ID: {{$funcionario->id}}</p>
+                        <p class="text-muted mb-4">{{$funcionario->departamento_id}}</p>
+                        <div class="d-flex justify-content-center mb-2">
+                            <button type="button" class="btn btn-primary ms-2 me-2" Disabled>Botão 1</button>
+                            <button type="button" class="btn btn-outline-primary  ms-2 me-2" Disabled>Botão 2</button>
                         </div>
-                      </div>
                     </div>
-                    <div class="row">
-                      <div class="col-12 col-sm-6 mb-3">
-                        <div class="mb-2"><b>Alterar Palavra-Passe</b></div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Nova Palavra-Passe</label>
-                              <input class="form-control" type="password" placeholder="" name="password" value="{{ auth()->user()->password }}">
-                            </div>
-                          </div>
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary" type="submit">Guardar</button>
-                      </div>
-                    </div>
-                  </form>
                 </div>
-              </div>
+                <div class="card mb-4 mb-lg-0">
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush rounded-3">
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                                <p class="mb-0">Contacto 1</p>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                                <p class="mb-0">Contacto 1</p>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                                <p class="mb-0">Contacto 1</p>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                                <p class="mb-0">Contacto 1</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="col-lg-8 mt-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Nome Completo</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{$funcionario->name}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{$funcionario->email}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Departamento</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{$funcionario->departamento_id}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Nivel de Permissão</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{$funcionario->nivelpermissao_id}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Conta criada a:</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{$funcionario->created_at}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4 mb-md-0">
+                            <div class="card-body">
+                                <p class="mb-4"><span class="text-primary font-italic me-1">Informações basicas
+                                </p>
+                                <p class="mb-1" style="font-size: .77rem;">Processos Atribuidos</p>
+                                <div class="progress rounded" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                                         aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="mt-4 mb-1" style="font-size: .77rem;">Processos Confirmados</p>
+                                <div class="progress rounded" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
+                                         aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="mt-4 mb-1" style="font-size: .77rem;">Processos Processados</p>
+                                <div class="progress rounded" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
+                                         aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="mt-4 mb-1" style="font-size: .77rem;">Processos Anulados</p>
+                                <div class="progress rounded" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
+                                         aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="mt-4 mb-1" style="font-size: .77rem;">Processos Concluidos</p>
+                                <div class="progress rounded mb-2" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
+                                         aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-     <!-- SCRIPTS -->
-     <script src="../js/jquery.min.js"></script>
-     <script src="../js/bootstrap.min.js"></script>
-     <script src="../js/aos.js"></script>
-     <script src="../js/custom.js"></script>
-     <script src="js/custom-file-input.js"></script>
-     <script src="../js/custom.js"></script> 
-
-</body>
-</html>
 @stop
 

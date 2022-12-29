@@ -73,6 +73,13 @@ Route::get('/admin/funcionarios', [\App\Http\Controllers\FuncionariosController:
 
 Route::get('/admin/funcionario/{id?}',[\App\Http\Controllers\FuncionariosController::class, 'funcionario'])->name('admin.funcionario');
 
+Route::post('/admin/update/{id?}', [\App\Http\Controllers\FuncionariosController::class, 'update'])->name('funcionario.update');
+
+Route::post('/admin/save', [\App\Http\Controllers\FuncionariosController::class, 'save'])->name('funcionario.save');
+
+Route::post('/admin/delete/{id?}', [\App\Http\Controllers\FuncionariosController::class, 'delete'])->name('funcionario.delete');
+
+
 //Route::post('/admin/funcionario/{user}',[App])
 
 Route::middleware(['auth'])->group(function () {

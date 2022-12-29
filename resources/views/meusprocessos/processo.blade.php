@@ -5,9 +5,11 @@
                 <h5 class="my-3">Estado: {{$processo->estado_id}}</h5>
                 <p class="text-muted mb-1">ID:{{$processo->id}}</p>
                 <div class="d-flex justify-content-center mb-2">
-                    <button type="button" class="btn btn-danger m-1" data-toggle="modal" data-target="#modalDelete">
-                        Apagar
-                    </button>
+                    @can('admin')
+                        <button type="button" class="btn btn-danger m-1" data-toggle="modal" data-target="#modalDelete">
+                            Apagar
+                        </button>
+                    @endcan
                     <button type="button" class="btn btn-info m-1" data-toggle="modal"
                             data-target="#modalUpdate">Atualizar
                     </button>
@@ -68,9 +70,11 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form method="post" action="{{route('meusprocessos.delete', $processo->id)}}">
+            @csrf
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Tem a certeza que pretende Eliminar?</h5>
@@ -91,7 +95,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -113,8 +118,7 @@
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Descrição: </label>
                         <textarea name="descricao" rows="8" class="form-control" id="message-text"
-                                  value="{{$processo->descricao}}" placeholder="{{$processo->descricao}}"
-                                  required></textarea>
+                                  placeholder="{{$processo->descricao}}" required>{{$processo->descricao}}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label"> Funcionário</label>
