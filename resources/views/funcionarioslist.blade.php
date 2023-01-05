@@ -25,8 +25,13 @@
                 </div>
                 <div class="card-body p-0">
                     <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a style="cursor: pointer;" id="todos" class="nav-link">
+                                <i class=""></i> Todos
+                            </a>
+                        </li>
                         @foreach($departamentos as $departamento)
-                            <li class="nav-item active">
+                            <li class="nav-item">
                                 <a style="cursor: pointer;" id="{{$departamento->id}}" class="nav-link">
                                     <i class=""></i> {{$departamento->nome}}
                                 </a>
@@ -53,17 +58,18 @@
     <script src="https://code.jquery.com/jquery-3.6.2.min.js"
             integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
     <script>
+
         @foreach($departamentos as $departamento)
         $("#{{$departamento->id}}").on('click', function () {
             $("#funcionarios").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
             $("#funcionarios").load("{!! route('admin.funcionarios.' . $departamento->identificador) !!}")
         });
-
         @endforeach
-        $("#refreshFuncionarios").on('click', function () {
-            // $("#emails").empty()
+
+
+        $("#todos").on('click', function () {
             $("#funcionarios").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
-            $("#funcionarios").load("{!! route('admin.funcionarios') !!}")
+            $("#funcionarios").load("{!! route('admin.funcionarios')!!}")
         });
 
         $(document).on('click', 'a.verFuncionario', function (e) {

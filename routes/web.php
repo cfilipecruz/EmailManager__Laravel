@@ -68,7 +68,10 @@ Route::post('/meusprocessos/delete/{id?}', [\App\Http\Controllers\MeusProcessosC
 //Perfil-----------------------------------------------------------------------------------------
 Route::get('perfil',[PerfilController::class,'index'])->name('perfil');
 
-Route::get('/change-password', [App\Http\Controllers\HomeController::class, 'changePassword'])->name('change-password');
+Route::get('/change-password', [App\Http\Controllers\HomeController::class, 'changePassword'])->name('change.password');
+
+
+
 
 //Funcionarios------------------------------------------------------------------------------------
 

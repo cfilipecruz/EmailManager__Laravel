@@ -21,8 +21,8 @@
                         <p class="text-muted mb-1">ID: {{$funcionario->id}}</p>
                         <p class="text-muted mb-4">{{$funcionario->departamento_id}}</p>
                         <div class="d-flex justify-content-center mb-2">
-                            <button type="button" class="btn btn-primary ms-2 me-2" Disabled>Botão 1</button>
-                            <button type="button" class="btn btn-outline-primary  ms-2 me-2" Disabled>Botão 2</button>
+                            <button type="button" action="{{route('change.password')}}" class="btn btn-info ms-2 me-2">Mudar Password</button>
+                            <button type="button" class="btn btn-outline-primary  ms-2 me-2" Disabled>Mais Opções</button>
                         </div>
                     </div>
                 </div>
