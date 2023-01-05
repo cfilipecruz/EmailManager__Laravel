@@ -127,9 +127,7 @@ class MailBoxController extends Controller
         $departamentos = Departamento::all();
         $this->mailbox->setFlag('\\Seen', $id);
         $attachments = $message->getAttachments();
-        //dd($message);
-        //echo($message);
-        //$this->mailbox->clearFlag('\\Seen', $id);
+
         return view('mailbox.email')->with(['message'=>$message,
                                                 'attachments'=>$attachments,
                                                 'funcionarios'=>$funcionarios,

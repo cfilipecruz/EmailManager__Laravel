@@ -42,4 +42,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function nivelpermissao(){
+
+        return $this->belongsTo(Nivelpermissao::class);
+
+    }
+    public function departamento(){
+
+        return $this->belongsTo(Departamento::class);
+
+    }
+
 }

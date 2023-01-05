@@ -16,10 +16,8 @@
                     {{$funcionario->username}}
                 </a></td>
             <td>{{$funcionario->email}}</td>
-            <td>{{optional($funcionario->departamento)->nome}}</td>
+            <td>{{$funcionario->departamento_id}}</td>
         </tr>
     @endforeach
     </tbody>
 </table>
-
-

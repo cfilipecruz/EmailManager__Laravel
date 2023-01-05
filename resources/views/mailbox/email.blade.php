@@ -17,7 +17,9 @@
     </div>
     <div class="card-footer bg-white">
         <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+            @if ($attachments != 0)
             @foreach ($attachments as $attachment)
+
                 <li>
                     <span class="mailbox-attachment-icon"><i class="far fa-file-pdf"></i></span>
                     <p>{{ $attachment->getFilename() }}</p>
@@ -27,12 +29,13 @@
                         </button>
                         <a class="btn btn-default btn-sm float-right">
                                 <?php
-                                Storage::put($attachment->getFilename(), $attachment->getDecodedContent());
+                               // Storage::put($attachment->getFilename(), $attachment->getDecodedContent());
                                 ?>
                             <i class="fas fa-cloud-download-alt"></i></a>
                     </div>
                 </li>
             @endforeach
+            @endif
         </ul>
     </div>
 </div>
@@ -50,7 +53,7 @@
             <div class="modal-body">
                 <p>
                     <?php
-                    Storage::put($attachment->getFilename(), $attachment->getDecodedContent());
+                  //  Storage::put($attachment->getFilename(), $attachment->getDecodedContent());
                     ?>
                 </p>
             </div>

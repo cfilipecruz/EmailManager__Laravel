@@ -13,7 +13,7 @@
                             <button type="button" class="btn btn-danger m-1" data-toggle="modal" data-target="#modalDelete">
                                 Apagar
                             </button>
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                            <button type="button" class="btn btn-primary m-1" data-toggle="modal"
                                     data-target="#updateFuncionario">
                                 Update
                             </button>
@@ -44,10 +44,10 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">NivelPermissão</p>
+                                <p class="mb-0">Nivel de Permissão</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{$funcionario->nivelpermissao_id}}</p>
+                                <p class="text-muted mb-0">{{optional($funcionario->nivelpermissao)->nome}}</p>
                             </div>
                         </div>
                         <hr>
@@ -56,7 +56,7 @@
                                 <p class="mb-0">Departamento</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{$funcionario->departamento_id}}</p>
+                                <p class="text-muted mb-0">{{optional($funcionario->departamento)->nome}}</p>
                             </div>
                         </div>
                         <hr>
@@ -129,6 +129,11 @@
                                id="recipient-name" required>
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input autocomplete="false" name="password" type="password" class="form-control" id="exampleInputPassword1"
+                               placeholder="Password" minlength="8" required>
+                    </div>
+                    <div class="form-group">
                         <label for="recipient-name" class="col-form-label"> Nome Completo:</label>
                         <input name="name" type="text" class="form-control" value="{{$funcionario->name}}"
                                id="recipient-name" required>
@@ -168,7 +173,7 @@
 <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form method="post" action="{{route('$funcionario.delete', $funcionario->id)}}">
+        <form method="post" action="{{route('funcionario.delete', $funcionario->id)}}">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -178,12 +183,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                 ID:   {{$funcionario->id}}
-                Username:  {{$funcionario->username}}
+                    <p>ID: {{$funcionario->id}}</p>
+                    <p> Username:  {{$funcionario->username}}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger">Apagar Processo</button>
+                    <button type="submit" class="btn btn-danger">Apagar Funcionário</button>
                 </div>
             </div>
         </form>

@@ -62,8 +62,13 @@ Route::post('/meusprocessos/update/{id?}', [\App\Http\Controllers\MeusProcessosC
 
 Route::post('/meusprocessos/delete/{id?}', [\App\Http\Controllers\MeusProcessosController::class, 'delete'])->name('meusprocessos.delete');
 
+
+
+
+//Perfil-----------------------------------------------------------------------------------------
 Route::get('perfil',[PerfilController::class,'index'])->name('perfil');
 
+Route::get('/change-password', [App\Http\Controllers\HomeController::class, 'changePassword'])->name('change-password');
 
 //Funcionarios------------------------------------------------------------------------------------
 
@@ -71,19 +76,22 @@ Route::get('/funcionarioslist', [\App\Http\Controllers\FuncionariosController::c
 
 Route::get('/admin/funcionarios', [\App\Http\Controllers\FuncionariosController::class,'funcionarios'])->name('admin.funcionarios');
 
+Route::get('/admin/funcionarios/direcao', [\App\Http\Controllers\FuncionariosController::class,'direcao'])->name('admin.funcionarios.direcao');
+
+Route::get('/admin/funcionarios/informatica', [\App\Http\Controllers\FuncionariosController::class,'informatica'])->name('admin.funcionarios.informatica');
+
+Route::get('/admin/funcionarios/contabilidade', [\App\Http\Controllers\FuncionariosController::class,'contabilidade'])->name('admin.funcionarios.contabilidade');
+
 Route::get('/admin/funcionario/{id?}',[\App\Http\Controllers\FuncionariosController::class, 'funcionario'])->name('admin.funcionario');
 
 Route::post('/admin/update/{id?}', [\App\Http\Controllers\FuncionariosController::class, 'update'])->name('funcionario.update');
 
 Route::post('/admin/save', [\App\Http\Controllers\FuncionariosController::class, 'save'])->name('funcionario.save');
 
+Route::get('/admin/search/{search?}', [\App\Http\Controllers\FuncionariosController::class, 'search'])->name('funcionarios.search');
+
 Route::post('/admin/delete/{id?}', [\App\Http\Controllers\FuncionariosController::class, 'delete'])->name('funcionario.delete');
 
 
-//Route::post('/admin/funcionario/{user}',[App])
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('funcionarios',[PerfilController::class,'funcionarios'])->name('funcionarios');
-    Route::post('perfil/{user}',[PerfilController::class,'update'])->name('perfil.update');
-});
 
