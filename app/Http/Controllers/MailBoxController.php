@@ -125,7 +125,8 @@ class MailBoxController extends Controller
         $message =  $this->mailbox->getMessage($id);
         $funcionarios = User::all();
         $departamentos = Departamento::all();
-        $this->mailbox->setFlag('\\Seen', $id);
+
+       $this->mailbox->setFlag('\\Seen', $id);
         $attachments = $message->getAttachments();
 
         return view('mailbox.email')->with(['message'=>$message,
@@ -133,6 +134,16 @@ class MailBoxController extends Controller
                                                 'funcionarios'=>$funcionarios,
                                                 'departamentos'=>$departamentos
         ]);
+    }
+
+    public function emailsasseen($id){
+        $this->mailbox->setFlag('\\Seen', $id);
+        return view('mailbox');
+    }
+
+    public function emailsasnotseen($id){
+        $this->mailbox->clearFlag('\\Seen', $id);
+        return view('mailbox');
     }
 }
 

@@ -8,6 +8,7 @@ use App\Models\Processo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use PharIo\Manifest\Email;
 
 class MeusProcessosController extends Controller
 {
@@ -31,73 +32,92 @@ class MeusProcessosController extends Controller
         return view('meusprocessos');
     }
 
-    public function processos(){
-        $processos = Processo::where('funcionario_id',\auth()->user()->id)->get();
+    public function processos()
+    {
+        $processos = Processo::where('funcionario_id', \auth()->user()->id)->get();
         $departamentos = Departamento::all();
-       // $processos =  Processo::all();
-          //dd($processos);
-        return view('meusprocessos.processos') ->with(['processos'=>$processos,
-                                                            'departamentos'=>$departamentos]);
+        // $processos =  Processo::all();
+        //dd($processos);
+        return view('meusprocessos.processos')->with(['processos' => $processos,
+            'departamentos' => $departamentos]);
     }
 
-    public function processosConfirmados(){
-        $processos = Processo::where('funcionario_id',\auth()->user()->id)->get();
+    public function processosConfirmados()
+    {
+        $processos = Processo::where('funcionario_id', \auth()->user()->id)->get();
         $departamentos = Departamento::all();
         // $processos =  Processo::all();
         //  dd($processos);
-        return view('meusprocessos.processosConfirmados') ->with(['processos'=>$processos,
-            'departamentos'=>$departamentos]);
-    }
-    public function processosProcessados(){
-        $processos = Processo::where('funcionario_id',\auth()->user()->id)->get();
-        $departamentos = Departamento::all();
-        // $processos =  Processo::all();
-        //  dd($processos);
-        return view('meusprocessos.processosProcessados') ->with(['processos'=>$processos,
-            'departamentos'=>$departamentos]);
-    }
-    public function processosAbertos(){
-        $processos = Processo::where('funcionario_id',\auth()->user()->id)->get();
-        $departamentos = Departamento::all();
-        // $processos =  Processo::all();
-        //  dd($processos);
-        return view('meusprocessos.processosAbertos') ->with(['processos'=>$processos,
-            'departamentos'=>$departamentos]);
-    }
-    public function processosAnulados(){
-        $processos = Processo::where('funcionario_id',\auth()->user()->id)->get();
-        $departamentos = Departamento::all();
-        // $processos =  Processo::all();
-        //  dd($processos);
-        return view('meusprocessos.processosAnulados') ->with(['processos'=>$processos,
-            'departamentos'=>$departamentos]);
-    }
-    public function processosConcluidos(){
-        $processos = Processo::where('funcionario_id',\auth()->user()->id)->get();
-        $departamentos = Departamento::all();
-        // $processos =  Processo::all();
-        //  dd($processos);
-        return view('meusprocessos.processosConcluidos') ->with(['processos'=>$processos,
-            'departamentos'=>$departamentos]);
+        return view('meusprocessos.processosConfirmados')->with(['processos' => $processos,
+            'departamentos' => $departamentos]);
     }
 
-    public function meusprocessosSave(Request $request){
-       // dd($request->all());
+    public function processosProcessados()
+    {
+        $processos = Processo::where('funcionario_id', \auth()->user()->id)->get();
+        $departamentos = Departamento::all();
+        // $processos =  Processo::all();
+        //  dd($processos);
+        return view('meusprocessos.processosProcessados')->with(['processos' => $processos,
+            'departamentos' => $departamentos]);
+    }
 
-        $processo= new Processo();
+    public function processosAbertos()
+    {
+        $processos = Processo::where('funcionario_id', \auth()->user()->id)->get();
+        $departamentos = Departamento::all();
+        // $processos =  Processo::all();
+        //  dd($processos);
+        return view('meusprocessos.processosAbertos')->with(['processos' => $processos,
+            'departamentos' => $departamentos]);
+    }
 
-        $processo->nome= $request->nome;
-        $processo->descricao= $request->descricao;
-        $processo->estado_id= 1;
-        $processo->departamento_id= $request->departamento;
-        $processo->funcionario_id= $request->funcionario;
+    public function processosAnulados()
+    {
+        $processos = Processo::where('funcionario_id', \auth()->user()->id)->get();
+        $departamentos = Departamento::all();
+        // $processos =  Processo::all();
+        //  dd($processos);
+        return view('meusprocessos.processosAnulados')->with(['processos' => $processos,
+            'departamentos' => $departamentos]);
+    }
+
+    public function processosConcluidos()
+    {
+        $processos = Processo::where('funcionario_id', \auth()->user()->id)->get();
+        $departamentos = Departamento::all();
+        // $processos =  Processo::all();
+        //  dd($processos);
+        return view('meusprocessos.processosConcluidos')->with(['processos' => $processos,
+            'departamentos' => $departamentos]);
+    }
+
+    public function meusprocessosSave(Request $request)
+    {
+        // dd($request->all());
+
+        $processo = new Processo();
+
+
+       // $email->subject = $request->assunto;
+       // $email->emailremetente = $request->emailremetente;
+       // $email->desenvolvimento = $request->desenvolvimento;
+        //$email->anexos = $request->anexos;
+      //  $email->processo_id = $request->processo_id;
+
+        $processo->nome = $request->nome;
+        $processo->descricao = $request->descricao;
+        $processo->estado_id = 1;
+        $processo->departamento_id = $request->departamento;
+        $processo->funcionario_id = $request->funcionario;
 
         $processo->save();
 
         return redirect()->back();
     }
 
-    public function processo($id){
+    public function processo($id)
+    {
 
         $processo = Processo::find($id);
 
@@ -105,30 +125,45 @@ class MeusProcessosController extends Controller
         $departamentos = Departamento::all();
         $estados = Estado::all();
 
-        return view('meusprocessos.processo')->with(['processo'=>$processo,
-            'funcionarios'=>$funcionarios,
-            'estados'=>$estados,
-            'departamentos'=>$departamentos]);
+        return view('meusprocessos.processo')->with(['processo' => $processo,
+            'funcionarios' => $funcionarios,
+            'estados' => $estados,
+            'departamentos' => $departamentos]);
     }
 
     public function update(Request $request, $id)
     {
         $processo = Processo::find($id);
-        $processo->nome= $request->nome;
-        $processo->descricao= $request->descricao;
-        $processo->funcionario_id= $request->funcionario;
-        $processo->departamento_id= $request->departamento;
-        $processo->estado_id= $request->estado;
+        $processo->nome = $request->nome;
+        $processo->descricao = $request->descricao;
+        $processo->funcionario_id = $request->funcionario;
+        $processo->departamento_id = $request->departamento;
+        $processo->estado_id = $request->estado;
 
         $processo->update();
 
         return redirect()->back();
     }
-    public function delete($id){
 
+    public function delete($id)
+    {
         $processo = Processo::find($id);
         $processo->delete();
 
         return redirect()->back();
     }
+
+    public function processosSearch($val)
+    {
+        echo $val;
+        $search = $val;
+        $processos = Processo::find(1);
+       /* $processos = Processo::where('name', 'like', '%' . $search . '%')->where('funcionario_id', \auth()->user()->id)->get();*/
+        $departamentos = Departamento::all();
+
+        return view('meusprocessos.processosSearch')->with(['processos' => $processos,
+            'departamentos' => $departamentos
+        ]);
+    }
 }
+

@@ -33,10 +33,13 @@
                         {{$message->getNumber()}}
                     </td>
                     <td>
-                        <i style="cursor: pointer;" class="far fa-envelope"></i>
+                        <a data-id="{{$message->getNumber()}}"  style="cursor:pointer;" class="markasseen text-dark"
+                           data-toggle="tooltip" data-html="true" title="Marcar Lido">
+                            <i class="far fa-envelope"></i> </a>
                     </td>
-                    <td class="mailbox-name"><a style="cursor:pointer;" class="readEmail"
-                                                data-id="{{$message->getNumber()}}">
+                    <td class="mailbox-name">
+                        <a style="cursor:pointer;" class="readEmail"
+                           data-id="{{$message->getNumber()}}">
                             {{$message->getFrom()->getAddress()}}
                         </a></td>
                     <td class="mailbox-subject"><b>
@@ -54,7 +57,9 @@
                         {{$message->getNumber()}}
                     </td>
                     <td>
-                        <i style="cursor: pointer;" class="far fa-envelope-open"></i>
+                        <a data-id="{{$message->getNumber()}}" style="cursor:pointer;" class="markasnotseen text-white"
+                           data-toggle="tooltip" data-html="true" title="Marcar como não Lido">
+                            <i class="far fa-envelope-open"></i> </a>
                     </td>
                     <td class="mailbox-name text-white"><a style="cursor:pointer;" class="readEmail text-white"
                                                            data-id="{{$message->getNumber()}}">

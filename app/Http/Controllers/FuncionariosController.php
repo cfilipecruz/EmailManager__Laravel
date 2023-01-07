@@ -68,7 +68,7 @@ class FuncionariosController extends Controller
         $funcionario = User::find($id);
         $funcionario->username = $request->username;
 
-        $funcionario->password = $request->password;
+        $funcionario->password = bcrypt($request->password);
         $funcionario->name = $request->name;
         $funcionario->email = $request->email;
         $funcionario->departamento_id = $request->departamento;
@@ -100,7 +100,7 @@ class FuncionariosController extends Controller
         $funcionario->email = $request->email;
         $funcionario->departamento_id = $request->departamento;
         $funcionario->nivelpermissao_id = $request->permissao;
-        $funcionario->password = $request->password;
+        $funcionario->password = bcrypt($request->password);
 
         $funcionario->save();
 
@@ -109,7 +109,6 @@ class FuncionariosController extends Controller
 
     public function search($name)
     {
-
         $funcionarios = User::find($name);
         $departamentos = Departamento::all();
 
@@ -118,7 +117,8 @@ class FuncionariosController extends Controller
         ]);
     }
 
-    public function informatica()
+
+    public function direcao()
     {
 
         $funcionarios = User::where('departamento_id', 1)->get();;
@@ -129,9 +129,8 @@ class FuncionariosController extends Controller
         ]);
     }
 
-    public function direcao()
+    public function informatica()
     {
-
         $funcionarios = User::where('departamento_id', 2)->get();;
         $departamentos = Departamento::all();
 
@@ -139,6 +138,8 @@ class FuncionariosController extends Controller
             'departamentos' => $departamentos
         ]);
     }
+
+
 
     public function contabilidade()
     {

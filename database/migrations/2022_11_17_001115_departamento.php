@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->string('descricao');
+            $table->string('identificador');
             $table->timestamps();
         });
     }

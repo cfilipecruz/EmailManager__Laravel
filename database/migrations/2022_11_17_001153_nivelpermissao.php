@@ -12,14 +12,12 @@ return new class extends Migration
      * @return void
      */
     public function up()
-    { 
+    {
         Schema::dropIfExists('nivelpermissao'); //Clean the table first
         Schema::create('nivelpermissao', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('descrisao');
-            $table->integer('estado_id');
-            $table->integer('funcionario_id');
+            $table->string('descricao');
             $table->timestamps();
         });
     }

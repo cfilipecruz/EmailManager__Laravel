@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('descricao');
             $table->integer('estado_id');
             $table->integer('funcionario_id');
+            $table->integer('departamento_id');
             $table->timestamps();
         });
     }

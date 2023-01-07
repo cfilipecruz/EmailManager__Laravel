@@ -2,7 +2,7 @@
     <div class="container py-5">
         <div class="card mb-4">
             <div class="card-body text-center">
-                <h5 class="my-3">Estado: {{$processo->estado_id}}</h5>
+                <h5 class="my-3">Estado: {{$processo->estado->nome}}</h5>
                 <p class="text-muted mb-1">ID:{{$processo->id}}</p>
                 <div class="d-flex justify-content-center mb-2">
                     @can('admin')
@@ -33,7 +33,7 @@
                         <p class="mb-0">Responsável</p>
                     </div>
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{$processo->funcionario_id}}</p>
+                        <p class="text-muted mb-0">{{$processo->funcionario->username}}</p>
                     </div>
                 </div>
                 <hr>
@@ -51,7 +51,7 @@
                         <p class="mb-0">Departamento Atribuido</p>
                     </div>
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{$processo->departamento_id}}</p>
+                        <p class="text-muted mb-0">{{$processo->departamento->nome}}</p>
                     </div>
                 </div>
                 <hr>

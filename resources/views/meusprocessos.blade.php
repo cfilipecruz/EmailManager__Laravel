@@ -26,28 +26,28 @@
                 <div class="card-body p-0">
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item active bg-primary">
-                            <a  style="cursor: pointer;" id="processosConfirmados" class="nav-link">
+                            <a style="cursor: pointer;" id="processosConfirmados" class="nav-link">
                                 <i class="fas fa-inbox"></i> Confirmados
                             </a>
                         </li>
                         <li class="nav-item bg-info">
-                            <a  style="cursor: pointer;"  id="processosProcessados" class="nav-link">
-                                <i  class="fas fa-clipboard-check"></i> Processados
+                            <a style="cursor: pointer;" id="processosProcessados" class="nav-link">
+                                <i class="fas fa-clipboard-check"></i> Processados
                             </a>
                         </li>
                         <li class="nav-item  bg-secondary">
-                            <a  style="cursor: pointer;"  id="processosAbertos" class="nav-link">
+                            <a style="cursor: pointer;" id="processosAbertos" class="nav-link">
                                 <i class="fas fa-folder-open"></i> Abertos
                             </a>
                         </li>
                         <li class="nav-item  bg-danger">
-                            <a  style="cursor: pointer;"  id="processosAnulados" class="nav-link">
-                                <i  class="fas fa-ban"></i> Anulados
+                            <a style="cursor: pointer;" id="processosAnulados" class="nav-link">
+                                <i class="fas fa-ban"></i> Anulados
                             </a>
                         </li>
                         <li class="nav-item  bg-success">
-                            <a  style="cursor: pointer;"  id="processosConcluidos" class="nav-link">
-                                <i  class="fas fa-check"></i> Concluidos
+                            <a style="cursor: pointer;" id="processosConcluidos" class="nav-link">
+                                <i class="fas fa-check"></i> Concluidos
                             </a>
                         </li>
                     </ul>
@@ -89,8 +89,10 @@
         <div class="col-md-9 mb-5">
             <div class="box-tools pull-right">
                 <div class="has-feedback">
-                    <input type="text" class="form-control input-sm" placeholder="Procurar Processo pelo nome">
-                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                    <form>
+                        <input type="text" name="search" class="form-control input-sm" id="search" value="" placeholder="Procurar Processo pelo nome">
+                       <!-- <a type="submit" class="btn btn-primary" id="processosSearch">Procurar</a> -->
+                    </form>
                 </div>
             </div>
             <div id='processos'>
@@ -132,6 +134,18 @@
             $("#processos").load("{!! route('meusprocessos.processosConcluidos') !!}")
         });
 
+        $("#processosConcluidos").on('click', function () {
+            $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
+            $("#processos").load("{!! route('meusprocessos.processosConcluidos') !!}" )
+        });
+
+        $("#search").on("keyup", function() {
+            var val = $.trim(this.value);
+            //val = val.toLowerCase();
+            //console.log(val);
+            $("#processos").load("{!! route('meusprocessos.processosSearch') !!}"+ "/" + val)
+        });
+
         $(document).on('click', 'a.readProcesso', function (e) {
             var id = $(this).attr("data-id")
             //console.log(id);
@@ -142,9 +156,7 @@
         $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
         $("#processos").load("{!! route('meusprocessos.processos') !!}")
 
-
     </script>
-
 @stop
 
 

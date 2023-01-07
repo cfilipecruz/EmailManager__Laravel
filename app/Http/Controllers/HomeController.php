@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,6 +28,6 @@ class HomeController extends Controller
     }
     public function changePassword()
     {
-        return view('change-password');
+        return view('auth.change-password');
     }
 }

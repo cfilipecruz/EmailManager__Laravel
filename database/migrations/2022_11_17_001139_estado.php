@@ -17,9 +17,7 @@ return new class extends Migration
         Schema::create('estado', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('descrisao');
-            $table->integer('estado_id');
-            $table->integer('funcionario_id');
+            $table->string('descricao');
             $table->timestamps();
         });
     }

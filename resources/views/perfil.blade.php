@@ -9,7 +9,7 @@
 
 @section('title', 'Mail Manager')
 @section('content')
-    <section style="background-color: #eee;">
+    <section style="background-color: #eee;" class="m-0, p-0">
         <div class="row">
             <div class="col-lg-4 mt-4">
                 <div class="card mb-4">
@@ -17,11 +17,11 @@
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                              alt="avatar"
                              class="rounded-circle img-fluid" style="width: 150px;">
-                        <h5 class="my-3">{{$funcionario->username}}</h5>
+                        <h5 class="my-3">Perfil Pessoal</h5>
+                        <p class="text-muted mb-1">{{$funcionario->username}}</p>
                         <p class="text-muted mb-1">ID: {{$funcionario->id}}</p>
-                        <p class="text-muted mb-4">{{$funcionario->departamento_id}}</p>
                         <div class="d-flex justify-content-center mb-2">
-                            <button type="button" action="{{route('change.password')}}" class="btn btn-info ms-2 me-2">Mudar Password</button>
+                            <a href="{{route('change.password')}}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Mudar Password</a>
                             <button type="button" class="btn btn-outline-primary  ms-2 me-2" Disabled>Mais Opções</button>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                                 <p class="mb-0">Departamento</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{$funcionario->departamento_id}}</p>
+                                <p class="text-muted mb-0">{{optional($funcionario->departamento)->nome}}</p>
                             </div>
                         </div>
                         <hr>
@@ -84,7 +84,7 @@
                                 <p class="mb-0">Nivel de Permissão</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{$funcionario->nivelpermissao_id}}</p>
+                                <p class="text-muted mb-0">{{optional($funcionario->nivelpermissao)->nome}}</p>
                             </div>
                         </div>
                         <hr>
@@ -99,16 +99,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card mb-4 mb-md-0">
                             <div class="card-body">
-                                <p class="mb-4"><span class="text-primary font-italic me-1">Informações basicas
-                                </p>
-                                <p class="mb-1" style="font-size: .77rem;">Processos Atribuidos</p>
-                                <div class="progress rounded" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                <p class="mb-4"><span class="text-primary font-italic me-1"/>Processos Atribuidos</p>
                                 <p class="mt-4 mb-1" style="font-size: .77rem;">Processos Confirmados</p>
                                 <div class="progress rounded" style="height: 5px;">
                                     <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"

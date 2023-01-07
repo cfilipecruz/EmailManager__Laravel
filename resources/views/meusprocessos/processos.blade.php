@@ -17,7 +17,7 @@
                     <td><a style="cursor:pointer;" class="readProcesso text-white" data-id="{{$processo->id}}">{{$processo->nome}}</a> </td>
                     <td>{{$processo->created_at}}</td>
                     <td>{{$processo->updated_at}}</td>
-                    <td>{{$processo->departamento_id}}</td>
+                    <td>{{$processo->departamento->nome}}</td>
             </tr>
         @endif
         @if($processo->estado_id == 2)
@@ -26,7 +26,7 @@
                 <td><a style="cursor:pointer;" class="readProcesso text-white" data-id="{{$processo->id}}">{{$processo->nome}}</a> </td>
                 <td>{{$processo->created_at}}</td>
                 <td>{{$processo->updated_at}}</td>
-                <td>{{$processo->departamento_id}}</td>
+                <td>{{$processo->departamento->nome}}</td>
             </tr>
         @endif
         @if($processo->estado_id == 3)
@@ -35,7 +35,7 @@
                 <td><a style="cursor:pointer;" class="readProcesso text-white" data-id="{{$processo->id}}">{{$processo->nome}}</a> </td>
                 <td>{{$processo->created_at}}</td>
                 <td>{{$processo->updated_at}}</td>
-                <td>{{$processo->departamento_id}}</td>
+                <td>{{$processo->departamento->nome}}</td>
             </tr>
         @endif
         @if($processo->estado_id == 4)
@@ -44,7 +44,7 @@
                 <td><a style="cursor:pointer;" class="readProcesso text-white" data-id="{{$processo->id}}">{{$processo->nome}}</a> </td>
                 <td>{{$processo->created_at}}</td>
                 <td>{{$processo->updated_at}}</td>
-                <td>{{$processo->departamento_id}}</td>
+                <td>{{$processo->departamento->nome}}</td>
             </tr>
         @endif
         @if($processo->estado_id == 5)
@@ -53,7 +53,7 @@
                 <td><a style="cursor:pointer;" class="readProcesso text-white" data-id="{{$processo->id}}">{{$processo->nome}}</a> </td>
                 <td>{{$processo->created_at}}</td>
                 <td>{{$processo->updated_at}}</td>
-                <td>{{$processo->departamento_id}}</td>
+                <td>{{$processo->departamento->nome}}</td>
             </tr>
         @endif
     @endforeach

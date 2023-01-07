@@ -112,7 +112,20 @@
             //console.log(id);
             $("#emails").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
             $("#emails").load("{!! route('mailbox.email') !!}" + "/" + id)
-        });
+        })
+
+       $(document).on('click', 'a.markasseen', function (e) {
+            var id = $(this).attr("data-id")
+            //console.log(id);
+            $("#emails").load("{!! route('mailbox.emails.asseen') !!}" + "/" + id)
+        })
+
+        $(document).on('click', 'a.markasnotseen', function (e) {
+            var id = $(this).attr("data-id")
+           // console.log(id);
+            $("#emails").load("{!! route('mailbox.emails.asnotseen') !!}" + "/" + id)
+        })
+
 
         $("#emails").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
         $("#emails").load("{!! route('mailbox.emails') !!}")

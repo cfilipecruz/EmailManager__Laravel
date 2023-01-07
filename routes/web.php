@@ -16,18 +16,21 @@ use App\Http\Controllers\PerfilController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+   return view('auth.login');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
 //Mailbox-------------------------------------------------------
 Route::get('/mailbox', [App\Http\Controllers\MailBoxController::class, 'mailbox'])->name('mailbox');
 
 Route::get('/mailbox/emails', [App\Http\Controllers\MailBoxController::class, 'emails'])->name('mailbox.emails');
+
+Route::get('/mailbox/emails/asssen/{id?}', [App\Http\Controllers\MailBoxController::class, 'emailsasseen'])->name('mailbox.emails.asseen');
+
+Route::get('/mailbox/emails/asnotseen/{id?}', [App\Http\Controllers\MailBoxController::class, 'emailsasnotseen'])->name('mailbox.emails.asnotseen');
 
 Route::get('/mailbox/emailsnew', [App\Http\Controllers\MailBoxController::class, 'emailsnew'])->name('mailbox.emailsnew');
 
@@ -43,6 +46,8 @@ Route::get('/mailbox/email/{id?}', [App\Http\Controllers\MailBoxController::clas
 Route::get('/meusprocessos', [App\Http\Controllers\MeusProcessosController::class, 'meusprocessos'])->name('meusprocessos');
 
 Route::get('/meusprocessos/processos', [App\Http\Controllers\MeusProcessosController::class, 'processos'])->name('meusprocessos.processos');
+
+Route::get('meusprocessos/processos/search', [App\Http\Controllers\MeusProcessosController::class, 'processosSearch'])->name('meusprocessos.processosSearch');
 
 Route::get('/meusprocessos/processosConfirmado', [App\Http\Controllers\MeusProcessosController::class, 'processosConfirmados'])->name('meusprocessos.processosConfirmados');
 

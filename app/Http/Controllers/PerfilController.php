@@ -15,16 +15,4 @@ class PerfilController extends Controller
         $funcionario = Auth::user();
         return view('perfil')->with(['funcionario'=>$funcionario]);
     }
-
-    public function update(User $user, Request $request)
-    {
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'updated_at' => now()
-         ]);
-
-        return back();
-    }
 }
