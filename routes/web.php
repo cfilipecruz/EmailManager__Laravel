@@ -47,7 +47,7 @@ Route::get('/meusprocessos', [App\Http\Controllers\MeusProcessosController::clas
 
 Route::get('/meusprocessos/processos', [App\Http\Controllers\MeusProcessosController::class, 'processos'])->name('meusprocessos.processos');
 
-Route::get('meusprocessos/processos/search', [App\Http\Controllers\MeusProcessosController::class, 'processosSearch'])->name('meusprocessos.processosSearch');
+Route::get('/meusprocessos/processos/Search/{search?}', [App\Http\Controllers\MeusProcessosController::class, 'processosSearch'])->name('meusprocessos.processosSearch');
 
 Route::get('/meusprocessos/processosConfirmado', [App\Http\Controllers\MeusProcessosController::class, 'processosConfirmados'])->name('meusprocessos.processosConfirmados');
 
@@ -68,13 +68,10 @@ Route::post('/meusprocessos/update/{id?}', [\App\Http\Controllers\MeusProcessosC
 Route::post('/meusprocessos/delete/{id?}', [\App\Http\Controllers\MeusProcessosController::class, 'delete'])->name('meusprocessos.delete');
 
 
-
-
 //Perfil-----------------------------------------------------------------------------------------
 Route::get('perfil',[PerfilController::class,'index'])->name('perfil');
 
 Route::get('/change-password', [App\Http\Controllers\HomeController::class, 'changePassword'])->name('change.password');
-
 
 
 
@@ -102,4 +99,17 @@ Route::post('/admin/delete/{id?}', [\App\Http\Controllers\FuncionariosController
 
 
 
+//Departamentos------------------------------------------------------------------------------------
+
+Route::get('/departamentoslist', [\App\Http\Controllers\DepartamentosController::class,'departamentoslist'])->name('departamentoslist');
+
+Route::get('/admin/departamentos', [\App\Http\Controllers\DepartamentosController::class,'departamentos'])->name('admin.departamentos');
+
+Route::get('/admin/departamento/{id?}',[\App\Http\Controllers\DepartamentosController::class, 'departamento'])->name('admin.departamento');
+
+Route::post('/admin/update/{id?}', [\App\Http\Controllers\DepartamentosController::class, 'update'])->name('departamento.update');
+
+Route::post('/admin/departamento/save', [\App\Http\Controllers\DepartamentosController::class, 'save'])->name('departamento.save');
+
+Route::post('/admin/delete/{id?}', [\App\Http\Controllers\DepartamentosController::class, 'delete'])->name('departamento.delete');
 

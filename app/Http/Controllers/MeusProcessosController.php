@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departamento;
+use App\Models\Email;
 use App\Models\Estado;
 use App\Models\Processo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use PharIo\Manifest\Email;
 
 class MeusProcessosController extends Controller
 {
@@ -98,13 +98,6 @@ class MeusProcessosController extends Controller
 
         $processo = new Processo();
 
-
-       // $email->subject = $request->assunto;
-       // $email->emailremetente = $request->emailremetente;
-       // $email->desenvolvimento = $request->desenvolvimento;
-        //$email->anexos = $request->anexos;
-      //  $email->processo_id = $request->processo_id;
-
         $processo->nome = $request->nome;
         $processo->descricao = $request->descricao;
         $processo->estado_id = 1;
@@ -112,6 +105,14 @@ class MeusProcessosController extends Controller
         $processo->funcionario_id = $request->funcionario;
 
         $processo->save();
+
+        $email = new Email();
+         $email->subject = $request->assunto;
+         $email->emailremetente = $request->emailremetente;
+         $email->desenvolvimento = $request->desenvolvimento;
+         $email->anexos = $request->anexos;
+         $email->processo_id = $processo->id;
+         $email->save();
 
         return redirect()->back();
     }
@@ -153,13 +154,17 @@ class MeusProcessosController extends Controller
         return redirect()->back();
     }
 
-    public function processosSearch($val)
+    public function processosSearch($search = null)
     {
-        echo $val;
-        $search = $val;
-        $processos = Processo::find(1);
-       /* $processos = Processo::where('name', 'like', '%' . $search . '%')->where('funcionario_id', \auth()->user()->id)->get();*/
         $departamentos = Departamento::all();
+
+        if($search == null){
+            $processos = Processo::all();
+        }else{
+            $processos = Processo::where('nome', 'like', '%' . $search . '%')
+                ->where('funcionario_id', \auth()->user()->id)
+                ->get();
+        }
 
         return view('meusprocessos.processosSearch')->with(['processos' => $processos,
             'departamentos' => $departamentos

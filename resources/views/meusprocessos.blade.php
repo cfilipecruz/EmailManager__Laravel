@@ -89,10 +89,8 @@
         <div class="col-md-9 mb-5">
             <div class="box-tools pull-right">
                 <div class="has-feedback">
-                    <form>
                         <input type="text" name="search" class="form-control input-sm" id="search" value="" placeholder="Procurar Processo pelo nome">
                        <!-- <a type="submit" class="btn btn-primary" id="processosSearch">Procurar</a> -->
-                    </form>
                 </div>
             </div>
             <div id='processos'>
@@ -106,7 +104,7 @@
 
         $("#refreshProcessos").on('click', function () {
             $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
-            $("#processos").load("{!! route('meusprocessos.processos') !!}")
+             $("#processos").load("{!! route('meusprocessos.processos') !!}")
         });
 
         $("#processosConfirmados").on('click', function () {
@@ -134,16 +132,12 @@
             $("#processos").load("{!! route('meusprocessos.processosConcluidos') !!}")
         });
 
-        $("#processosConcluidos").on('click', function () {
-            $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
-            $("#processos").load("{!! route('meusprocessos.processosConcluidos') !!}" )
-        });
-
-        $("#search").on("keyup", function() {
+        $("#search").on("keyup", function(e) {
             var val = $.trim(this.value);
-            //val = val.toLowerCase();
-            //console.log(val);
-            $("#processos").load("{!! route('meusprocessos.processosSearch') !!}"+ "/" + val)
+            if (e.key === 'Backspace') {
+                $("#processos").load("{!! route('meusprocessos.processosSearch') !!}/" + val )
+            }
+            $("#processos").load("{!! route('meusprocessos.processosSearch') !!}/" + val )
         });
 
         $(document).on('click', 'a.readProcesso', function (e) {

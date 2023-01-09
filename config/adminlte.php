@@ -31,7 +31,7 @@ return [
     */
 
     'use_ico_only' => true,
-    'use_full_favicon' => false,
+    'use_full_favicon' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -331,6 +331,13 @@ return [
         [
             'text' => 'Gerir Funcionários',
             'url'  => 'funcionarioslist',
+            'icon' => 'fas fa-fw  fa-users',
+            'can' => 'admin',
+        ],
+
+        [
+            'text' => 'Gerir Departamentos',
+            'url'  => 'departamentoslist',
             'icon' => 'fas fa-fw fa-list',
             'can' => 'admin',
         ],

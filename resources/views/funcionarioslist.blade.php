@@ -100,25 +100,28 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form autocomplete="off" method="post"  action="{{route('funcionario.save')}}">
+                    <form autocomplete="off" method="post" action="{{route('funcionario.save')}}">
                         @csrf
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Username:</label>
-                            <input autocomplete="false" name="username"  type="text" class="form-control" value="" id="recipient-name"
+                            <input autocomplete="false" name="username" type="text" class="form-control" value=""
+                                   id="username"
                                    required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
-                            <input autocomplete="false" name="password" type="password" class="form-control" id="exampleInputPassword1"
+                            <input autocomplete="false" name="password" type="password" class="form-control"
+                                   id="exampleInputPassword1"
                                    placeholder="Password" minlength="8" required>
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label"> Nome Completo:</label>
-                            <input name="name" type="text" class="form-control" value="" id="recipient-fullname" required>
+                            <input name="name" type="text" class="form-control" value="" id="recipient-fullname"
+                                   required>
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label"> E-mail:</label>
-                            <input name="email" type="text" class="form-control" value="" id="message-text"
+                            <input name="email" type="email" class="form-control" value="" id="email"
                                    required></input>
                         </div>
                         <div class="form-group">
