@@ -67,13 +67,17 @@
         </div>
     </div>
 </section>
+<section>
 
+
+
+</section>
 
 <!-- Modal -->
 <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form method="post" action="{{route('meusprocessos.delete', $processo->id)}}">
+        <form method="POST" action="{{route('meusprocessos.delete', $processo->id)}}">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -101,13 +105,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Atualizar Processo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                        action="{{route('meusprocessos.delete')}}">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{route('meusprocessos.update', $processo->id)}}">
+                <form method="POST" action="{{route('meusprocessos.update', $processo->id)}}">
                     @csrf
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label"> Nome:</label>

@@ -3,7 +3,6 @@
         {{ session('status') }}
     </div>
 @endif
-<!--{{ __('You are logged in!') }}-->
 
 @extends('adminlte::page')
 
@@ -39,45 +38,13 @@
                     </ul>
                 </div>
             </div>
-
-            <!-- <div class="card">
-                 <div class="card-header">
-                     <h3 class="card-title">Labels</h3>
-                     <div class="card-tools">
-                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                             <i class="fas fa-minus"></i>
-                         </button>
-                     </div>
-                 </div>
-                 <div class="card-body p-0">
-                     <ul class="nav nav-pills flex-column">
-                         <li class="nav-item">
-                             <a href="#" class="nav-link">
-                                 <i class="far fa-circle text-danger"></i>
-                                 Important
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="#" class="nav-link">
-                                 <i class="far fa-circle text-warning"></i> Promotions
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="#" class="nav-link">
-                                 <i class="far fa-circle text-primary"></i>
-                                 Social
-                             </a>
-                         </li>
-                     </ul>
-                 </div>
-             </div>-->
         </div>
         <div class="col-md-9">
             <div class="box-tools pull-right">
                 <div class="has-feedback">
-                    <input id="#search" type="text" name="search" class="form-control input-sm"
-                           placeholder="Search Mail">
-                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                    <input type="text" name=text autocomplete="off" class="form-control input-sm" id="search"
+                           value="" placeholder="Procurar email">
+                    <!-- <a type="submit" class="btn btn-primary" id="processosSearch">Procurar</a> -->
                 </div>
             </div>
             <div id='emails'>
@@ -85,9 +52,12 @@
         </div>
     </div>
 
+
     <script src="https://code.jquery.com/jquery-3.6.2.min.js"
             integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
     <script>
+
+
 
         $("#refreshEmails").on('click', function () {
             // $("#emails").empty()
@@ -114,7 +84,7 @@
             $("#emails").load("{!! route('mailbox.email') !!}" + "/" + id)
         })
 
-       $(document).on('click', 'a.markasseen', function (e) {
+        $(document).on('click', 'a.markasseen', function (e) {
             var id = $(this).attr("data-id")
             //console.log(id);
             $("#emails").load("{!! route('mailbox.emails.asseen') !!}" + "/" + id)
@@ -122,15 +92,20 @@
 
         $(document).on('click', 'a.markasnotseen', function (e) {
             var id = $(this).attr("data-id")
-           // console.log(id);
+            // console.log(id);
             $("#emails").load("{!! route('mailbox.emails.asnotseen') !!}" + "/" + id)
         })
 
+        $("#search").on("keyup", function (e) {
+            var val = $.trim(this.value);
+            if (e.key === 'Backspace') {
+                $("#emails").load("{!! route('mailbox.emails.search') !!}/" + val)
+            }
+            $("#emails").load("{!! route('mailbox.emails.search') !!}/" + val)
+        });
 
         $("#emails").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
         $("#emails").load("{!! route('mailbox.emails') !!}")
 
-
     </script>
-
 @stop

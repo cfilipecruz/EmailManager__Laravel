@@ -7,6 +7,7 @@ use App\Models\Nivelpermissao;
 use App\Models\Processo;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Symfony\Component\Uid\AbstractUid;
 
 class FuncionariosController extends Controller
 {
@@ -67,7 +68,6 @@ class FuncionariosController extends Controller
 
         $funcionario = User::find($id);
         $funcionario->username = $request->username;
-
         $funcionario->password = bcrypt($request->password);
         $funcionario->name = $request->name;
         $funcionario->email = $request->email;
@@ -107,50 +107,29 @@ class FuncionariosController extends Controller
         return redirect()->back();
     }
 
-    public function search($name)
+    public function filtro($search)
     {
-        $funcionarios = User::find($name);
+        $funcionarios = Departamento::where('identificador', $search)->first()->users;
+
+        // dd($funcionarios);
+        return view('admin.funcionariosSearch')->with(['funcionarios' => $funcionarios]);
+    }
+
+    public function funcionariosSearch($search = null)
+    {
         $departamentos = Departamento::all();
 
-        return view('admin.funcionarios')->with(['funcionarios' => $funcionarios,
+        if ($search == null) {
+            $funcionarios = User::all();
+        } else {
+            $funcionarios = User::where('name', 'like', '%' . $search . '%')->get();
+        }
+
+        return view('admin.funcionariosSearch')->with(['funcionarios' => $funcionarios,
             'departamentos' => $departamentos
         ]);
     }
 
-
-    public function direcao()
-    {
-
-        $funcionarios = User::where('departamento_id', 1)->get();;
-        $departamentos = Departamento::all();
-
-        return view('admin.funcionarios')->with(['funcionarios' => $funcionarios,
-            'departamentos' => $departamentos
-        ]);
-    }
-
-    public function informatica()
-    {
-        $funcionarios = User::where('departamento_id', 2)->get();;
-        $departamentos = Departamento::all();
-
-        return view('admin.funcionarios')->with(['funcionarios' => $funcionarios,
-            'departamentos' => $departamentos
-        ]);
-    }
-
-
-
-    public function contabilidade()
-    {
-
-        $funcionarios = User::where('departamento_id', 3)->get();;
-        $departamentos = Departamento::all();
-
-        return view('admin.funcionarios')->with(['funcionarios' => $funcionarios,
-            'departamentos' => $departamentos
-        ]);
-    }
 }
 
 

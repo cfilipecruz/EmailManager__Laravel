@@ -94,7 +94,7 @@ class MeusProcessosController extends Controller
 
     public function meusprocessosSave(Request $request)
     {
-        // dd($request->all());
+
 
         $processo = new Processo();
 
@@ -107,11 +107,13 @@ class MeusProcessosController extends Controller
         $processo->save();
 
         $email = new Email();
-         $email->subject = $request->assunto;
+
+         $email->assunto = $request->assunto;
          $email->emailremetente = $request->emailremetente;
          $email->desenvolvimento = $request->desenvolvimento;
          $email->anexos = $request->anexos;
          $email->processo_id = $processo->id;
+
          $email->save();
 
         return redirect()->back();

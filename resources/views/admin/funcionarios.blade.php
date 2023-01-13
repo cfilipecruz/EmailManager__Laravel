@@ -11,10 +11,12 @@
     @foreach($funcionarios as $funcionario)
         <tr class="list-group-item-action bg-primary">
             <th scope="row">{{$funcionario->id}}</th>
-            <td><a style="cursor:pointer;" class="verFuncionario  text-white"
+            <td>
+                <a style="cursor:pointer;" class="verFuncionario  text-white"
                    data-id="{{$funcionario->id}}">
                     {{$funcionario->username}}
-                </a></td>
+                </a>
+            </td>
             <td>{{$funcionario->email}}</td>
             <td>{{optional($funcionario->departamento)->nome}}</td>
         </tr>

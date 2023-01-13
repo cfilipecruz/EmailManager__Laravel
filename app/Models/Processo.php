@@ -25,4 +25,10 @@ class Processo extends Model
         return $this->belongsTo(Estado::class);
 
     }
+
+    public function email(){
+
+        return $this->belongsTo(Email::class);
+
+    }
 }

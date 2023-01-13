@@ -13,7 +13,7 @@
                 <h3 class="box-title">Inbox</h3>
             </div>
         </div>
-        @foreach ($messages as $message)
+        @foreach($paginatedMessages as $message)
             @if(!$message->isSeen())
                 <tr class="list-group-item-action">
                     <td>
@@ -66,16 +66,40 @@
         </tbody>
     </table>
 </div>
-<div class="box-body no-padding">
-    <div class="mailbox-controls">
-        <div class="pull-right">
-            1-10/
-            <div class="btn-group">
-                <button type="button" class="btn btn-default btn-sm"><i
-                        class="fa fa-chevron-left"></i></button>
-                <button type="button" class="btn btn-default btn-sm"><i
-                        class="fa fa-chevron-right"></i></button>
-            </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item
+                        @if($paginatedMessages->currentPage() === 1)
+                            disabled
+                        @endif
+                        ">
+                        <a class="page-link" href="{{ url()->current() }}?page={{ $paginatedMessages->currentPage() - 1 }}" tabindex="-1">Previous</a>
+                    </li>
+
+                    @for($i = 1; $i <= $paginatedMessages->lastPage(); $i++)
+                        <li class="page-item
+                            @if($i === $paginatedMessages->currentPage())
+                                active
+                            @endif
+                            ">
+                            <a class="page-link" href="{{ url()->current() }}?page={{ $i }}">{{ $i }}</a>
+                        </li>
+                    @endfor
+
+                    <li class="page-item
+                        @if($paginatedMessages->currentPage() === $paginatedMessages->lastPage())
+                            disabled
+                        @endif
+                        ">
+                        <a class="page-link" href="{{ url()->current() }}?page={{ $paginatedMessages->currentPage() + 1 }}">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
+

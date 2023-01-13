@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\MeusProcessosController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +23,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//Verificiar que utilizador tem login----------------
+
+//Home Page
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Mailbox-------------------------------------------------------
@@ -36,9 +41,11 @@ Route::get('/mailbox/emailsnew', [App\Http\Controllers\MailBoxController::class,
 
 Route::get('/mailbox/emailsseen', [App\Http\Controllers\MailBoxController::class, 'emailsseen'])->name('mailbox.emailsseen');
 
-Route::get('/mailbox/emailssearch', [App\Http\Controllers\MailBoxController::class, 'emailssearch'])->name('mailbox.emailssearch');
+Route::get('/mailbox/emails/Search/{search?}', [App\Http\Controllers\MailBoxController::class, 'emailsSearch'])->name('mailbox.emails.search');
 
 Route::get('/mailbox/email/{id?}', [App\Http\Controllers\MailBoxController::class, 'email'])->name('mailbox.email');
+
+Route::get('/download', 'MailboxController@downloadAttachment');
 
 
 //Processos---------------------------------------------------------------------------------------------------------------
@@ -74,12 +81,13 @@ Route::get('perfil',[PerfilController::class,'index'])->name('perfil');
 Route::get('/change-password', [App\Http\Controllers\HomeController::class, 'changePassword'])->name('change.password');
 
 
-
 //Funcionarios------------------------------------------------------------------------------------
 
 Route::get('/funcionarioslist', [\App\Http\Controllers\FuncionariosController::class,'funcionarioslist'])->name('funcionarioslist');
 
 Route::get('/admin/funcionarios', [\App\Http\Controllers\FuncionariosController::class,'funcionarios'])->name('admin.funcionarios');
+
+Route::get('/admin/funcionario/filtro/{identificador?}', [\App\Http\Controllers\FuncionariosController::class,'filtro'])->name('admin.funcionarios.filtro');
 
 Route::get('/admin/funcionarios/direcao', [\App\Http\Controllers\FuncionariosController::class,'direcao'])->name('admin.funcionarios.direcao');
 
@@ -93,10 +101,9 @@ Route::post('/admin/update/{id?}', [\App\Http\Controllers\FuncionariosController
 
 Route::post('/admin/save', [\App\Http\Controllers\FuncionariosController::class, 'save'])->name('funcionario.save');
 
-Route::get('/admin/search/{search?}', [\App\Http\Controllers\FuncionariosController::class, 'search'])->name('funcionarios.search');
+Route::get('/admin/funcionario/Search/{search?}', [\App\Http\Controllers\FuncionariosController::class, 'funcionariosSearch'])->name('admin.funcionariosSearch');
 
 Route::post('/admin/delete/{id?}', [\App\Http\Controllers\FuncionariosController::class, 'delete'])->name('funcionario.delete');
-
 
 
 //Departamentos------------------------------------------------------------------------------------
@@ -105,11 +112,16 @@ Route::get('/departamentoslist', [\App\Http\Controllers\DepartamentosController:
 
 Route::get('/admin/departamentos', [\App\Http\Controllers\DepartamentosController::class,'departamentos'])->name('admin.departamentos');
 
-Route::get('/admin/departamento/{id?}',[\App\Http\Controllers\DepartamentosController::class, 'departamento'])->name('admin.departamento');
+Route::get('/admin/departamento/{id?}', [\App\Http\Controllers\DepartamentosController::class, 'departamento'])->name('admin.departamento');
 
-Route::post('/admin/update/{id?}', [\App\Http\Controllers\DepartamentosController::class, 'update'])->name('departamento.update');
+Route::post('/admin/departamento/update/{id?}', [\App\Http\Controllers\DepartamentosController::class, 'update'])->name('departamento.update');
 
 Route::post('/admin/departamento/save', [\App\Http\Controllers\DepartamentosController::class, 'save'])->name('departamento.save');
 
-Route::post('/admin/delete/{id?}', [\App\Http\Controllers\DepartamentosController::class, 'delete'])->name('departamento.delete');
+Route::post('/admin/departamento/delete/{id?}', [\App\Http\Controllers\DepartamentosController::class, 'delete'])->name('departamento.delete');
+
+//Download pdf files
+
+
+
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departamento;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class DepartamentosController extends Controller
@@ -24,6 +23,7 @@ class DepartamentosController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
     public function departamentoslist()
     {
         $departamentos = Departamento::all();
@@ -48,7 +48,7 @@ class DepartamentosController extends Controller
     public function update(Request $request, $id)
     {
 
-        $departamento = new Departamento();
+        $departamento = Departamento::find($id);
 
         $departamento->nome = $request->nome;
         $departamento->identificador = $request->identificador;
@@ -62,7 +62,7 @@ class DepartamentosController extends Controller
     public function delete($id)
     {
 
-        $departamento = User::find($id);
+        $departamento = Departamento::find($id);
 
         $departamento->delete();
 
