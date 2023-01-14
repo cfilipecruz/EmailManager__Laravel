@@ -15,4 +15,23 @@ class PerfilController extends Controller
         $funcionario = Auth::user();
         return view('perfil')->with(['funcionario'=>$funcionario]);
     }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|confirmed|min:6',
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current.password' => 'The current password is incorrect']);
+        }
+
+        $user->password = bcrypt($request->new_password);
+        $user->save();
+
+        return back()->with('status', 'Password changed successfully');
+    }
 }

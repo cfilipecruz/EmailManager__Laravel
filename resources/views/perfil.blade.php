@@ -8,6 +8,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Mail Manager')
+
 @section('content')
     <section style="background-color: #eee;" class="m-0, p-0">
         <div class="row">
@@ -21,7 +22,7 @@
                         <p class="text-muted mb-1">{{$funcionario->username}}</p>
                         <p class="text-muted mb-1">ID: {{$funcionario->id}}</p>
                         <div class="d-flex justify-content-center mb-2">
-                            <a href="{{route('change.password')}}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Mudar Password</a>
+                            <a data-toggle="modal" data-target="#modalUpdate" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Mudar Password</a>
                             <button type="button" class="btn btn-outline-primary  ms-2 me-2" Disabled>Mais Opções</button>
                         </div>
                     </div>
@@ -130,6 +131,37 @@
             </div>
         </div>
     </section>
+
+    <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Atualizar Processo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('change.password') }}">
+                        @csrf
+                        <div class="form-group">
+                            <label for="current_password">Password Atual</label>
+                            <input type="password" class="form-control" id="current_password" name="current_password">
+                        </div>
+                        <div class="form-group">
+                            <label for="new_password">Nova Password</label>
+                            <input type="password" class="form-control" id="new_password" name="new_password">
+                        </div>
+                        <div class="form-group">
+                            <label for="new_password_confirmation">Confirmar Password</label>
+                            <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Mudar Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 @stop
 

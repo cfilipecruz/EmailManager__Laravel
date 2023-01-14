@@ -94,8 +94,6 @@ class MeusProcessosController extends Controller
 
     public function meusprocessosSave(Request $request)
     {
-
-
         $processo = new Processo();
 
         $processo->nome = $request->nome;
@@ -111,7 +109,7 @@ class MeusProcessosController extends Controller
          $email->assunto = $request->assunto;
          $email->emailremetente = $request->emailremetente;
          $email->desenvolvimento = $request->desenvolvimento;
-         $email->anexos = $request->anexos;
+
          $email->processo_id = $processo->id;
 
          $email->save();
@@ -121,7 +119,6 @@ class MeusProcessosController extends Controller
 
     public function processo($id)
     {
-
         $processo = Processo::find($id);
 
         $funcionarios = User::all();

@@ -110,7 +110,6 @@ class MailBoxController extends Controller
 
     public function emailsSearch($email = null)
     {
-
         // dd($email);
         if ($email == null) {
             $messages = $this->mailbox->getMessages(
@@ -121,7 +120,7 @@ class MailBoxController extends Controller
         } else {
             $search = new SearchExpression();
 
-            $search->addCondition(new To('geral@ftkode.com'));
+            $search->addCondition(new To($email));
 
             $messages = $this->mailbox->getMessages($search);
         }
@@ -135,7 +134,6 @@ class MailBoxController extends Controller
 
     public function email($id)
     {
-
         $message = $this->mailbox->getMessage($id);
         $funcionarios = User::all();
         $departamentos = Departamento::all();

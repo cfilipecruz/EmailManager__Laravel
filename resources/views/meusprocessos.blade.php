@@ -99,9 +99,10 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.2.min.js"
-            integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
-    <script>
+            integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous">
+    </script>
 
+    <script>
         $("#refreshProcessos").on('click', function () {
             $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
              $("#processos").load("{!! route('meusprocessos.processos') !!}")
@@ -132,19 +133,19 @@
             $("#processos").load("{!! route('meusprocessos.processosConcluidos') !!}")
         });
 
+        $(document).on('click', 'a.readProcesso', function (e) {
+            var id = $(this).attr("data-id")
+            //console.log(id);
+            $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
+            $("#processos").load("{!! route('meusprocessos.processo') !!}" + "/" + id)
+        });
+
         $("#search").on("keyup", function(e) {
             var val = $.trim(this.value);
             if (e.key === 'Backspace') {
                 $("#processos").load("{!! route('meusprocessos.processosSearch') !!}/" + val )
             }
             $("#processos").load("{!! route('meusprocessos.processosSearch') !!}/" + val )
-        });
-
-        $(document).on('click', 'a.readProcesso', function (e) {
-            var id = $(this).attr("data-id")
-            //console.log(id);
-            $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
-            $("#processos").load("{!! route('meusprocessos.processo') !!}" + "/" + id)
         });
 
         $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")

@@ -30,4 +30,18 @@ class HomeController extends Controller
     {
         return view('auth.change-password');
     }
+
+    public function store(Request $request)
+    {
+        $event = new Event;
+        $event->title = $request->title;
+        $event->start_date = $request->start_date;
+        $event->end_date = $request->end_date;
+        $event->save();
+
+        return response()->json([
+            'message' => 'Success'
+        ], 200);
+    }
+
 }

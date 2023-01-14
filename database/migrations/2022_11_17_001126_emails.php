@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('assunto');
             $table->string('desenvolvimento');
             $table->string('emailremetente');
-            $table->string('anexos');
             $table->integer('processo_id');
             $table->timestamps();
         });

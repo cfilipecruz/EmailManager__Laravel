@@ -1,3 +1,4 @@
+@if( Auth::user()->departamento_id == 1)
 @if (session('status'))
     <div class="alert alert-success" role="alert">
         {{ session('status') }}
@@ -52,13 +53,11 @@
         </div>
     </div>
 
-
     <script src="https://code.jquery.com/jquery-3.6.2.min.js"
-            integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+            integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous">
+    </script>
+
     <script>
-
-
-
         $("#refreshEmails").on('click', function () {
             // $("#emails").empty()
             $("#emails").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
@@ -109,3 +108,4 @@
 
     </script>
 @stop
+@endif

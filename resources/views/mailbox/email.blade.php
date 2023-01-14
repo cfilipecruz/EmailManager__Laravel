@@ -22,8 +22,8 @@
                     <li>
                         <span class="mailbox-attachment-icon"><i class="far fa-file-pdf"></i></span>
                         <p>{{ $attachment->getFilename() }}</p>
-                        <div class="mailbox-attachment-info" type="button">
-                        </div>
+                        <a href="#" class="download-attachment" data-email-id="{{$message->getNumber()}}"
+                           data-attachment-content="{{ $attachment->getDecodedContent() }}">Download Attachment</a>
                     </li>
                 @endforeach
             @endif
@@ -136,6 +136,27 @@
         var recipient = button.data('whatever')
         var modal = $(this)
     })
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.download-attachment').click(function(e) {
+            e.preventDefault();
+            var emailId = $(this).data('email-id');
+            var attachmentContent = $(this).data('attachment-content');
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('download.attachment') }}',
+                data: { email_id: emailId, attachment_content: attachmentContent },
+                success: function(response) {
+                    window.location = response.file;
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+            });
+        });
+    });
 </script>
 
 

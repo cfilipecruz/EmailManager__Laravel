@@ -45,7 +45,7 @@ Route::get('/mailbox/emails/Search/{search?}', [App\Http\Controllers\MailBoxCont
 
 Route::get('/mailbox/email/{id?}', [App\Http\Controllers\MailBoxController::class, 'email'])->name('mailbox.email');
 
-Route::get('/download', 'MailboxController@downloadAttachment');
+Route::post('download-attachment', [App\Http\Controllers\MailBoxController::class, 'downloadAttachment'])->name('download.attachment');
 
 
 //Processos---------------------------------------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ Route::post('/meusprocessos/delete/{id?}', [\App\Http\Controllers\MeusProcessosC
 //Perfil-----------------------------------------------------------------------------------------
 Route::get('perfil',[PerfilController::class,'index'])->name('perfil');
 
-Route::get('/change-password', [App\Http\Controllers\HomeController::class, 'changePassword'])->name('change.password');
+Route::post('/changePassword', [App\Http\Controllers\HomeController::class, 'changePassword'])->name('change.password');
 
 
 //Funcionarios------------------------------------------------------------------------------------
