@@ -342,6 +342,13 @@ return [
             'can' => 'admin',
         ],
 
+        [
+            'text' => 'Arquivo',
+            'url'  => 'arquivo',
+            'icon' => 'fas fa-fw fa-file-archive',
+            'can' => 'admin',
+        ],
+
 
        /* [
             'text'    => 'multilevel',

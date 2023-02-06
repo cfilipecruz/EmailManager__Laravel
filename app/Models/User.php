@@ -52,4 +52,8 @@ class User extends Authenticatable
         return $this->belongsTo(Departamento::class);
 
     }
+    public function processos()
+    {
+        return $this->hasMany(Processo::class);
+    }
 }

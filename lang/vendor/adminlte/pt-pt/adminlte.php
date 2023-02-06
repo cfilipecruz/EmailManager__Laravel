@@ -9,7 +9,7 @@ return [
     'remember_me'                 => 'Lembrar-me',
     'register'                    => 'Registar',
     'register_a_new_membership'   => 'Registar um novo membro',
-    'i_forgot_my_password'        => 'Esqueci minha password',
+    'i_forgot_my_password'        => 'Esqueci  a minha password',
     'i_already_have_a_membership' => 'Já sou um membro',
     'sign_in'                     => 'Entrar',
     'log_out'                     => 'Sair',

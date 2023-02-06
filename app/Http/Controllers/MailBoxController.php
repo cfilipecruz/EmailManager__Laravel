@@ -40,14 +40,14 @@ class MailBoxController extends Controller
         $this->username = env('EMAIL', '');
         $this->password = env('PASSWORD', '');
         $this->usernameOutlook = env('EMAIL_OUTLOOK', '');
-        $this->passwordOutlook = ENV('PASSWORD_OUTLOOK', '');
+        $this->passwordOutlook = env('PASSWORD_OUTLOOK', '');
 
         // $connection is instance of \Ddeboer\Imap\Connection
-        $this->connection = $this->server->authenticate($this->username, $this->password);
+       // $this->connection = $this->server->authenticate($this->username, $this->password);
         $this->connectionOutlook = $this->serverOutlook->authenticate($this->usernameOutlook, $this->passwordOutlook);
 
-        $this->mailbox = $this->connection->getMailbox('INBOX');
-        $this->mailboxOutlook = $this->connectionOutlook->getMailbox('Inbox');
+        //$this->mailbox = $this->connection->getMailbox('INBOX');
+        $this->mailbox = $this->connectionOutlook->getMailbox('Inbox');
         $this->middleware('auth');
     }
 
@@ -107,10 +107,10 @@ class MailBoxController extends Controller
         ]);
     }
 
-
     public function emailsSearch($email = null)
     {
-        // dd($email);
+        $search = new SearchExpression();
+
         if ($email == null) {
             $messages = $this->mailbox->getMessages(
                 null,
@@ -118,11 +118,11 @@ class MailBoxController extends Controller
                 true // Descending order
             );
         } else {
-            $search = new SearchExpression();
 
-            $search->addCondition(new To($email));
+            $search->addCondition(new Body($email));
 
             $messages = $this->mailbox->getMessages($search);
+            dd($messages);
         }
 
         $messagesNumber = $messages->count();
@@ -160,20 +160,44 @@ class MailBoxController extends Controller
         return view('mailbox');
     }
 
-    public function downloadAttachment(Request $request)
+    public function openAttachment(Request $request)
     {
-        $emailId = $request->input('email_id');
-        $attachmentContent = $request->input('attachment_content');
-        $path = '/my/local/dir/';
-        $message = $this->mailbox->getMessage($emailId);
-        $attachments = $message->getAttachments();
+        $email = $this->mailbox->getMessage($request->message_number);
+        // retrieve attachment by filename
+        $filename = $request->input('filename');
+        $attachments = $email->getAttachments();
         foreach ($attachments as $attachment) {
-            if ($attachment->getParent()->getId() == $emailId && $attachment->getDecodedContent() == $attachmentContent) {
-                $filename = $attachment->getFilename();
-                file_put_contents($path . $filename, $attachment->getDecodedContent());
-                return response()->download($path . $filename, $filename);
+            if ($attachment->getFilename() === $filename) {
+                $path_parts = pathinfo($attachment->getFilename());
+                $extension = $path_parts['extension'];
+                if(in_array($extension, ['jpg','jpeg','png','gif'])){
+                    return '<img src="data:image/'.$extension.';base64,' . base64_encode($attachment->getDecodedContent()) . '" />';
+                }
+                elseif(in_array($extension, ['pdf'])){
+                    return response()->streamDownload(function () use ($attachment) {
+                        echo $attachment->getDecodedContent();
+                    }, $attachment->getFilename(), ['Content-Type' => $attachment->getType()]);
+                }
+                elseif(in_array($extension, ['mp3','ogg','wav'])){
+                    return '<audio controls><source src="data:audio/'.$extension.';base64,' . base64_encode($attachment->getDecodedContent()) . '"></audio>';
+                }
+                elseif(in_array($extension, ['mp4','mkv','webm'])){
+                    return '<video width="320" height="240" controls><source src="data:video/'.$extension.';base64,' . base64_encode($attachment->getDecodedContent()) . '"></video>';
+                }
+                else{
+                    // you can use Google Drive viewer to preview different file types
+                    return '<iframe src="https://drive.google.com/viewerng/viewer?embedded=true&url=' . url('/attachment/open/' . $filename) . '" width="800" height="600"></iframe>';
+                }
             }
         }
+        //if attachment not found
+        return response()->json(['error' => 'Attachment not found'], 404);
+    }
+
+    public function employees(Request $request)
+    {
+        $employees = User::where('departamento_id', $request->departamento_id)->get();
+        return response()->json($employees);
     }
 }
 

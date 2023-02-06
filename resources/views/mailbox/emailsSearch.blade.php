@@ -13,19 +13,6 @@
                 <h3 class="box-title">Inbox</h3>
             </div>
         </div>
-        <div class="box-body no-padding">
-            <div class="mailbox-controls">
-                <div class="pull-right">
-                    1-50/200
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-sm"><i
-                                class="fa fa-chevron-left"></i></button>
-                        <button type="button" class="btn btn-default btn-sm"><i
-                                class="fa fa-chevron-right"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
         @foreach ($messages as $message)
             @if(!$message->isSeen())
                 <tr class="list-group-item-action">

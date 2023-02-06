@@ -144,21 +144,22 @@
                                id="message-text" required></input>
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label"> Nivel Permissão</label>
-                        <select name="permissao" class="form-select" aria-label="Default select example" required>
+                        <label for="permissao" class="col-form-label">Nivel Permissão</label>
+                        <select name="permissao" id="permissao" class="form-control">
                             @foreach($permissoes as $permissao)
                                 <option value="{{$permissao->id}}">{{$permissao->nome}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label"> Departamento</label>
-                        <select name="departamento" class="form-select" aria-label="Default select example" required>
+                        <label for="departamento" class="col-form-label">Departamento</label>
+                        <select name="departamento" id="departamento" class="form-control">
                             @foreach($departamentos as $departamento)
                                 <option value="{{$departamento->id}}">{{$departamento->nome}}</option>
                             @endforeach
                         </select>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Fazer Update</button>
@@ -186,8 +187,12 @@
                     <p> Username:  {{$funcionario->username}}</p>
                 </div>
                 <div class="modal-footer">
+                    @if ($funcionario->processos->count() > 0)
+                        <p class="text-danger">Existem processos associados a este funcionario, por isso não é possível excluí-lo.</p>
+                    @else
+                        <button type="submit" class="btn btn-danger">Apagar Funcionário</button>
+                    @endif
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger">Apagar Funcionário</button>
                 </div>
             </div>
         </form>

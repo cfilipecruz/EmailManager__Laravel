@@ -45,7 +45,9 @@ Route::get('/mailbox/emails/Search/{search?}', [App\Http\Controllers\MailBoxCont
 
 Route::get('/mailbox/email/{id?}', [App\Http\Controllers\MailBoxController::class, 'email'])->name('mailbox.email');
 
-Route::post('download-attachment', [App\Http\Controllers\MailBoxController::class, 'downloadAttachment'])->name('download.attachment');
+Route::post('/attachment/open', [App\Http\Controllers\MailBoxController::class, 'openAttachment'])->name('attachment.open');
+
+Route::get('/attachment/employees', [App\Http\Controllers\MailBoxController::class, 'employees'])->name('employees');
 
 
 //Processos---------------------------------------------------------------------------------------------------------------
@@ -74,6 +76,7 @@ Route::post('/meusprocessos/update/{id?}', [\App\Http\Controllers\MeusProcessosC
 
 Route::post('/meusprocessos/delete/{id?}', [\App\Http\Controllers\MeusProcessosController::class, 'delete'])->name('meusprocessos.delete');
 
+Route::post('/meusprocessos/arquivar/{id?}', [\App\Http\Controllers\MeusProcessosController::class, 'arquivar'])->name('meusprocessos.arquivar');
 
 //Perfil-----------------------------------------------------------------------------------------
 Route::get('perfil',[PerfilController::class,'index'])->name('perfil');
@@ -120,7 +123,9 @@ Route::post('/admin/departamento/save', [\App\Http\Controllers\DepartamentosCont
 
 Route::post('/admin/departamento/delete/{id?}', [\App\Http\Controllers\DepartamentosController::class, 'delete'])->name('departamento.delete');
 
-//Download pdf files
+//Arquivos
+
+Route::get('/arquivo', [App\Http\Controllers\ArquivosController::class, 'arquivo'])->name('arquivo');
 
 
 

@@ -53,23 +53,26 @@
                 </div>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.6.2.min.js"
-                integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous">
-        </script>
+
+        <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
         <script>
+
+            var isEmailOpen = 1
 
             @foreach($departamentos as $departamento)
             $("#{{$departamento->id}}").on('click', function () {
 
                 $("#funcionarios").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
                 $("#funcionarios").load("{!! route('admin.funcionarios.filtro') !!}/{!! $departamento->identificador !!}" )
+                isEmailOpen = 0
             });
             @endforeach
 
             $("#todos").on('click', function () {
                 $("#funcionarios").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
                 $("#funcionarios").load("{!! route('admin.funcionarios')!!}")
+                isEmailOpen = 1
             });
 
             $(document).on('click', 'a.verFuncionario', function (e) {
@@ -77,12 +80,14 @@
                 // console.log(id);
                 $("#funcionarios").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
                 $("#funcionarios").load("{!! route('admin.funcionario') !!}" + "/" + id)
+                isEmailOpen = 0
             });
 
             $("#funcionarios").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
             $("#funcionarios").load("{!! route('admin.funcionarios') !!}")
 
             $("#search").on("keyup", function (e) {
+                isEmailOpen = 0
                 var val = $.trim(this.value);
                 if (e.key === 'Backspace') {
                     $("#funcionarios").load("{!! route('admin.funcionariosSearch') !!}/" + val)
@@ -90,6 +95,13 @@
                 $("#funcionarios").load("{!! route('admin.funcionariosSearch') !!}/" + val)
             });
 
+            $(document).ready(function() {
+                setInterval(function() {
+                    if (isEmailOpen==1) {
+                        $("#emails").load("{!! route('mailbox.emails') !!}");
+                    }
+                }, 50000); // 1 minute
+            });
         </script>
 
         <div class="modal fade" id="criarFuncionario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -128,18 +140,16 @@
                                        required>
                             </div>
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label"> Nivel Permissão</label>
-                                <select name="permissao" class="form-select" aria-label="Default select example"
-                                        required>
+                                <label for="permissao" class="col-form-label font-weight-bold">Nível de Permissão</label>
+                                <select name="permissao" id="permissao" class="form-control" required>
                                     @foreach($permissoes as $permissao)
                                         <option value="{{$permissao->id}}">{{$permissao->nome}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label"> Departamento</label>
-                                <select name="departamento" class="form-select" aria-label="Default select example"
-                                        required>
+                                <label for="departamento" class="col-form-label font-weight-bold">Departamento</label>
+                                <select name="departamento" id="departamento" class="form-control" required>
                                     @foreach($departamentos as $departamento)
                                         <option value="{{$departamento->id}}">{{$departamento->nome}}</option>
                                     @endforeach

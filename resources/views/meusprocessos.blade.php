@@ -98,39 +98,45 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.2.min.js"
-            integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous">
-    </script>
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
     <script>
+        var isEmailOpen = 1
+
         $("#refreshProcessos").on('click', function () {
             $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
-             $("#processos").load("{!! route('meusprocessos.processos') !!}")
+            $("#processos").load("{!! route('meusprocessos.processos') !!}")
+            isEmailOpen = 1
         });
 
         $("#processosConfirmados").on('click', function () {
             $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
             $("#processos").load("{!! route('meusprocessos.processosConfirmados') !!}")
+            isEmailOpen = 0
         });
 
         $("#processosProcessados").on('click', function () {
             $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
             $("#processos").load("{!! route('meusprocessos.processosProcessados') !!}")
+            isEmailOpen = 0
         });
 
         $("#processosAbertos").on('click', function () {
             $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
             $("#processos").load("{!! route('meusprocessos.processosAbertos') !!}")
+            isEmailOpen = 0
         });
 
         $("#processosAnulados").on('click', function () {
             $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
             $("#processos").load("{!! route('meusprocessos.processosAnulados') !!}")
+            isEmailOpen = 0
         });
 
         $("#processosConcluidos").on('click', function () {
             $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
             $("#processos").load("{!! route('meusprocessos.processosConcluidos') !!}")
+            isEmailOpen = 0
         });
 
         $(document).on('click', 'a.readProcesso', function (e) {
@@ -138,9 +144,11 @@
             //console.log(id);
             $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
             $("#processos").load("{!! route('meusprocessos.processo') !!}" + "/" + id)
+            isEmailOpen = 0
         });
 
         $("#search").on("keyup", function(e) {
+            isEmailOpen = 0
             var val = $.trim(this.value);
             if (e.key === 'Backspace') {
                 $("#processos").load("{!! route('meusprocessos.processosSearch') !!}/" + val )
@@ -151,6 +159,13 @@
         $("#processos").html("<img src=' https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif' >")
         $("#processos").load("{!! route('meusprocessos.processos') !!}")
 
+        $(document).ready(function() {
+            setInterval(function() {
+                if (isEmailOpen==1) {
+                    $("#emails").load("{!! route('mailbox.emails') !!}");
+                }
+            }, 50000); // 5 minute
+        });
     </script>
 @stop
 

@@ -7,13 +7,15 @@
     "require": {
         "php": "^8.0.2",
         "codeat3/blade-majestic-icons": "^1.1",
-        "ddeboer/imap": "^1.14",
+        "ddeboer/imap": "^1.15",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^2.7",
         "jeroennoten/laravel-adminlte": "^3.8",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.1",
+        "php-ffmpeg/php-ffmpeg": "^1.1",
         "symfony/http-client": "^6.1",
         "symfony/mailgun-mailer": "^6.1",
         "webklex/laravel-imap": "^4.0"

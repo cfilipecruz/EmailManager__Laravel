@@ -67,7 +67,7 @@
     </table>
 </div>
 
-<div class="container">
+<div class="container mt-5" >
     <div class="row">
         <div class="col-md-12">
             <nav aria-label="Page navigation example">
@@ -77,7 +77,7 @@
                             disabled
                         @endif
                         ">
-                        <a class="page-link" href="{{ url()->current() }}?page={{ $paginatedMessages->currentPage() - 1 }}" tabindex="-1">Previous</a>
+                        <a class="page-link changePage" style="cursor:pointer" data-href="{{ url()->current() }}?page={{ $paginatedMessages->currentPage() - 1 }}" tabindex="-1">Previous</a>
                     </li>
 
                     @for($i = 1; $i <= $paginatedMessages->lastPage(); $i++)
@@ -86,7 +86,7 @@
                                 active
                             @endif
                             ">
-                            <a class="page-link" href="{{ url()->current() }}?page={{ $i }}">{{ $i }}</a>
+                            <a class="page-link changePage" style="cursor:pointer" data-href="{{ url()->current() }}?page={{ $i }}">{{ $i }}</a>
                         </li>
                     @endfor
 
@@ -95,11 +95,13 @@
                             disabled
                         @endif
                         ">
-                        <a class="page-link" href="{{ url()->current() }}?page={{ $paginatedMessages->currentPage() + 1 }}">Next</a>
+                        <a  class="page-link changePage" style="cursor:pointer" data-href="{{ url()->current() }}?page={{ $paginatedMessages->currentPage() + 1 }}">Next</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </div>
 </div>
+
+
 

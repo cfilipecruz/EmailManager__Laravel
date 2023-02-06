@@ -83,13 +83,12 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form method="post" action="{{route('departamento.delete', $departamento->id)}}">
                 @csrf
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header bg-danger text-white">
                         <h5 class="modal-title" id="exampleModalLabel">Tem a certeza que pretende Eliminar?</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -100,8 +99,12 @@
                         <p> Nome: {{$departamento->nome}}</p>
                     </div>
                     <div class="modal-footer">
+                        @if ($departamento->users->count() > 0)
+                            <p class="text-danger">Existem funcionários associados a este departamento, por isso não é possível excluí-lo.</p>
+                        @else
+                            <button type="submit" class="btn btn-danger">Apagar Departamento</button>
+                        @endif
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-danger">Apagar Departamento</button>
                     </div>
                 </div>
             </form>

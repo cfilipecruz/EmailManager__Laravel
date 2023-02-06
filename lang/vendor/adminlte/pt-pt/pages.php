@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'main_navigation'               => 'Navegador Principal',
+    'blog'                          => 'Blog',
+    'pages'                         => 'Página',
+    'account_settings'              => 'Configurações da Conta',
+    'profile'                       => 'Perfil',
+    'change_password'               => 'Mudar Password',
+    'multilevel'                    => 'Multinível',
+    'level_one'                     => 'Nível 1',
+    'level_two'                     => 'Nível 2',
+    'level_three'                   => 'Nível 3',
+    'labels'                        => 'Etiquetas',
+    'Important'                     => 'Importante',
+    'Warning'                       => 'Aviso',
+    'Information'                   => 'Informação',
+    'update'                        => 'Atualizar',
+    'employee'                      => 'Funcionários',
+    'Name'                          => 'Nome',
+    'Department'                    => 'Departamento',
+    'all'                           => 'Todos',
+    'Manage'                        => 'Gerir',
+    'Profile'                        => 'Pefil',
+];

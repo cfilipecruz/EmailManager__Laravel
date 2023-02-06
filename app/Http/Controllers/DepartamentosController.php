@@ -61,12 +61,16 @@ class DepartamentosController extends Controller
 
     public function delete($id)
     {
-
         $departamento = Departamento::find($id);
+
+        if ($departamento->users->count() > 0) {
+            // If there are funcionarios associated with the departamento, return a message to the user
+            return redirect()->back()->withErrors(['error' => 'Existem funcionários associados a este departamento, por isso não é possível excluí-lo.']);
+        }
 
         $departamento->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('Sucesso', 'Departamento apago com sucesso.');
     }
 
     public function save(Request $request)

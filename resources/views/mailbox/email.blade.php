@@ -1,3 +1,8 @@
+
+<button type="button" class="btn btn-primary mt-2 mb-2 flex btn-block col-md-12" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Criar
+    novo processo a partir deste e-mail
+</button>
+
 <div class="col-md-12">
     <div class="card card-primary card-outline">
         <h5 class="card-header">
@@ -6,58 +11,58 @@
         <div class="card-body p-0">
             <div class="mailbox-read-info">
                 <h5> Assunto: {{$message->getSubject()}}</h5>
-                <span class="mailbox-read-time float-right"> {{$message->getDate()->format('d/m/Y')}}</span></h6>
+                <h6><span class="float-right"> {{$message->getDate()->format('d/m/Y')}}</span></h6>
             </div>
         </div>
-
         <div class="mailbox-read-message">
             <h5>Conteudo: </h5>
             <p> {!! $message->getBodyHtml() !!}</p>
         </div>
     </div>
     <div class="card-footer bg-white">
-        <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+        <ul class="mailbox-attachments d-flex align-items-stretch clearfix" style=" display: flex; flex-wrap: wrap;">
             @if ($attachments != 0)
                 @foreach ($attachments as $attachment)
-                    <li>
-                        <span class="mailbox-attachment-icon"><i class="far fa-file-pdf"></i></span>
-                        <p>{{ $attachment->getFilename() }}</p>
-                        <a href="#" class="download-attachment" data-email-id="{{$message->getNumber()}}"
-                           data-attachment-content="{{ $attachment->getDecodedContent() }}">Download Attachment</a>
+                    <li style="cursor: pointer; width: 150px; margin: 10px; text-align: center;" class="d-flex align-items-center" onclick="event.preventDefault(); document.getElementById('openAttachmentForm{{$loop->index}}').submit();">
+                        <form method="POST" action="{{route('attachment.open')}}" id="openAttachmentForm{{$loop->index}}">
+                            @csrf
+                            <input type="hidden" name="filename" value="{{$attachment->getFilename()}}">
+                            <input type="hidden" name="message_number" value="{{$message->getNumber()}}">
+                            @php
+                                $path_parts = pathinfo($attachment->getFilename());
+                                $extension = $path_parts['extension'];
+                                switch ($extension) {
+                                  case 'jpg':
+                                  case 'jpeg':
+                                  case 'png':
+                                  case 'gif':
+                                    echo '<span class="mailbox-attachment-icon mr-3"><img src="data:image/'.$extension.';base64, '.base64_encode($attachment->getDecodedContent()).'" width="50" height="50"/></span>';
+                                    break;
+                                  case 'pdf':
+                                    echo '<span class="mailbox-attachment-icon mr-3"><i class="far fa-file-pdf"></i></span>';
+                                    break;
+                                  case 'mp4':
+                                    echo '<span class="mailbox-attachment-icon mr-3"><i class="fas fa-file-video"></i></span>';
+                                    break;
+                                  case 'mp3':
+                                    echo '<span class="mailbox-attachment-icon mr-3"><i class="fas fa-file-audio"></i></span>';
+                                    break;
+                                  default:
+                                    echo '<span class="mailbox-attachment-icon mr-3"><i class="far fa-file"></i></span>';
+                                    break;
+                                }
+                            @endphp
+                            <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 120px;">{{ $attachment->getFilename() }}</p>
+                        </form>
                     </li>
                 @endforeach
             @endif
         </ul>
     </div>
+
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="attach" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">PDF</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    <?php
-                    //  Storage::put($attachment->getFilename(), $attachment->getDecodedContent());
-                    ?>
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Criar
-    Processo
-</button>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -81,19 +86,18 @@
                         <textarea name="descricao" class="form-control" value="" id="descricao" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label"> Funcionário</label>
-                        <select name="funcionario" class="form-select" aria-label="Default select example" required>
-                            @foreach($funcionarios as $funcionario)
-                                <option value="{{$funcionario->id}}">{{$funcionario->name}}</option>
+                        <label class="col-form-label">Departamento</label>
+                        <select name="departamento" id="department" class="custom-select form-control" aria-label="Default select example" required>
+                            <option value="" selected>Selecionar Departmento</option>
+                            @foreach($departamentos as $departamento)
+                                <option value="{{$departamento->id}}">{{$departamento->nome}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label"> Departamento</label>
-                        <select name="departamento" class="form-select" aria-label="Default select example" required>
-                            @foreach($departamentos as $departamento)
-                                <option value="{{$departamento->id}}">{{$departamento->nome}}</option>
-                            @endforeach
+                        <label class="col-form-label">Funcionário</label>
+                        <select name="funcionario" id="employee" class="custom-select form-control" aria-label="Default select example" required>
+                            <option value="">Selecionar Funcionário</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -124,11 +128,7 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.2.min.js"
-        integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous">
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
 <script>
     $('#exampleModal').on('show.bs.modal', function (event) {
@@ -140,24 +140,25 @@
 
 <script>
     $(document).ready(function() {
-        $('.download-attachment').click(function(e) {
-            e.preventDefault();
-            var emailId = $(this).data('email-id');
-            var attachmentContent = $(this).data('attachment-content');
+        $('#department').on('change', function() {
+            let departmentId = $(this).val();
             $.ajax({
-                type: 'POST',
-                url: '{{ route('download.attachment') }}',
-                data: { email_id: emailId, attachment_content: attachmentContent },
-                success: function(response) {
-                    window.location = response.file;
-                },
-                error: function(response) {
-                    console.log(response);
+                url: "{{ route('employees') }}",
+                type: 'GET',
+                data: { departamento_id: departmentId },
+                success: function(data) {
+                    let employeeSelect = $('#employee');
+                    employeeSelect.empty();
+                    employeeSelect.append('<option value="">Selecionar Funcionário</option>');
+                    $.each(data, function(index, employee) {
+                        employeeSelect.append('<option value="' + employee.id + '">' + employee.name + '</option>');
+                    });
                 }
             });
         });
     });
 </script>
+
 
 
 
