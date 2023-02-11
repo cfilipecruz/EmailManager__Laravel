@@ -2,15 +2,15 @@
     <table class="table table-hover">
         <tbody>
         <tr>
-            <td>id</td>
-            <td>status</td>
+            <td>ID</td>
+            <td>Estado</td>
             <td>Email</td>
-            <td>Subject</td>
-            <td>date</td>
+            <td>Assunto</td>
+            <td>Data</td>
         </tr>
         <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Inbox</h3>
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="text-secondary">Caixa de Entrada</h3>
             </div>
         </div>
         @foreach($paginatedMessages as $message)

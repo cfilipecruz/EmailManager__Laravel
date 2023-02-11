@@ -14,6 +14,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 
 
+
 class MailBoxController extends Controller
 {
     private $server;
@@ -43,7 +44,7 @@ class MailBoxController extends Controller
         $this->passwordOutlook = env('PASSWORD_OUTLOOK', '');
 
         // $connection is instance of \Ddeboer\Imap\Connection
-       // $this->connection = $this->server->authenticate($this->username, $this->password);
+        // $this->connection = $this->server->authenticate($this->username, $this->password);
         $this->connectionOutlook = $this->serverOutlook->authenticate($this->usernameOutlook, $this->passwordOutlook);
 
         //$this->mailbox = $this->connection->getMailbox('INBOX');
@@ -70,41 +71,65 @@ class MailBoxController extends Controller
         $messagesNumber = $messages->count();
         $perPage = 10;
         $page = request()->input('page', 1);
-        $paginatedMessages = $messages->slice(($page - 1) * $perPage, $perPage)->values();
-        $paginatedMessages = new LengthAwarePaginator($paginatedMessages, $messagesNumber, $perPage, $page);
+        $startIndex = ($page - 1) * $perPage;
+        $endIndex = min($startIndex + $perPage, $messagesNumber);
+        $batch = $messages->slice($startIndex, $endIndex - $startIndex)->values();
+        $paginatedMessages = new LengthAwarePaginator($batch, $messagesNumber, $perPage, $page);
         return view('mailbox.emails', compact('paginatedMessages', 'messagesNumber'));
     }
 
-    public function emailsnew()
+    public function email($id)
     {
+        $message = $this->mailbox->getMessage($id);
+        $funcionarios = User::all();
+        $departamentos = Departamento::all();
 
-        $messages = $this->mailbox->getMessages(
-            null,
-            \SORTDATE, // Sort criteria
-            true // Descending order
-        );
+        $this->mailbox->setFlag('\\Seen', $id);
+        $attachments = $message->getAttachments();
 
-        $messagesNumber = $messages->count();
-
-        return view('mailbox.emailsnew')->with(['messages' => $messages,
-            'messagesNumber' => $messagesNumber
+        return view('mailbox.email')->with(['message' => $message,
+            'attachments' => $attachments,
+            'funcionarios' => $funcionarios,
+            'departamentos' => $departamentos
         ]);
     }
 
+
+    public function emailsnew()
+    {
+        $search = new \Ddeboer\Imap\SearchExpression();
+        $search->addCondition(new \Ddeboer\Imap\Search\Flag\UnSeen());
+        $messages = collect($this->mailbox->getMessages(
+            $search,
+            \SORTDATE,
+            true));
+        $messagesNumber = $messages->count();
+        $perPage = 10;
+        $page = request()->input('page', 1);
+        $startIndex = ($page - 1) * $perPage;
+        $endIndex = min($startIndex + $perPage, $messagesNumber);
+        $batch = $messages->slice($startIndex, $endIndex - $startIndex)->values();
+        $paginatedMessages = new LengthAwarePaginator($batch, $messagesNumber, $perPage, $page);
+        return view('mailbox.emails', compact('paginatedMessages', 'messagesNumber'));
+    }
+
+
     public function emailsseen()
     {
-
-        $messages = $this->mailbox->getMessages(
-            null,
-            \SORTDATE, // Sort criteria
-            true // Descending order
-        );
-
+        $search = new \Ddeboer\Imap\SearchExpression();
+        $search->addCondition(new \Ddeboer\Imap\Search\Flag\Seen());
+        $messages = collect($this->mailbox->getMessages(
+            $search,
+            \SORTDATE,
+            true));
         $messagesNumber = $messages->count();
-
-        return view('mailbox.emailsseen')->with(['messages' => $messages,
-            'messagesNumber' => $messagesNumber
-        ]);
+        $perPage = 10;
+        $page = request()->input('page', 1);
+        $startIndex = ($page - 1) * $perPage;
+        $endIndex = min($startIndex + $perPage, $messagesNumber);
+        $batch = $messages->slice($startIndex, $endIndex - $startIndex)->values();
+        $paginatedMessages = new LengthAwarePaginator($batch, $messagesNumber, $perPage, $page);
+        return view('mailbox.emails', compact('paginatedMessages', 'messagesNumber'));
     }
 
     public function emailsSearch($email = null)
@@ -132,21 +157,7 @@ class MailBoxController extends Controller
         ]);
     }
 
-    public function email($id)
-    {
-        $message = $this->mailbox->getMessage($id);
-        $funcionarios = User::all();
-        $departamentos = Departamento::all();
 
-        $this->mailbox->setFlag('\\Seen', $id);
-        $attachments = $message->getAttachments();
-
-        return view('mailbox.email')->with(['message' => $message,
-            'attachments' => $attachments,
-            'funcionarios' => $funcionarios,
-            'departamentos' => $departamentos
-        ]);
-    }
 
     public function emailsasseen($id)
     {
@@ -170,21 +181,17 @@ class MailBoxController extends Controller
             if ($attachment->getFilename() === $filename) {
                 $path_parts = pathinfo($attachment->getFilename());
                 $extension = $path_parts['extension'];
-                if(in_array($extension, ['jpg','jpeg','png','gif'])){
-                    return '<img src="data:image/'.$extension.';base64,' . base64_encode($attachment->getDecodedContent()) . '" />';
-                }
-                elseif(in_array($extension, ['pdf'])){
+                if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])) {
+                    return '<img src="data:image/' . $extension . ';base64,' . base64_encode($attachment->getDecodedContent()) . '" />';
+                } elseif (in_array($extension, ['pdf'])) {
                     return response()->streamDownload(function () use ($attachment) {
                         echo $attachment->getDecodedContent();
                     }, $attachment->getFilename(), ['Content-Type' => $attachment->getType()]);
-                }
-                elseif(in_array($extension, ['mp3','ogg','wav'])){
-                    return '<audio controls><source src="data:audio/'.$extension.';base64,' . base64_encode($attachment->getDecodedContent()) . '"></audio>';
-                }
-                elseif(in_array($extension, ['mp4','mkv','webm'])){
-                    return '<video width="320" height="240" controls><source src="data:video/'.$extension.';base64,' . base64_encode($attachment->getDecodedContent()) . '"></video>';
-                }
-                else{
+                } elseif (in_array($extension, ['mp3', 'ogg', 'wav'])) {
+                    return '<audio controls><source src="data:audio/' . $extension . ';base64,' . base64_encode($attachment->getDecodedContent()) . '"></audio>';
+                } elseif (in_array($extension, ['mp4', 'mkv', 'webm'])) {
+                    return '<video width="320" height="240" controls><source src="data:video/' . $extension . ';base64,' . base64_encode($attachment->getDecodedContent()) . '"></video>';
+                } else {
                     // you can use Google Drive viewer to preview different file types
                     return '<iframe src="https://drive.google.com/viewerng/viewer?embedded=true&url=' . url('/attachment/open/' . $filename) . '" width="800" height="600"></iframe>';
                 }

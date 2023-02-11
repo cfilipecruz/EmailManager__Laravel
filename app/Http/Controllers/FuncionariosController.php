@@ -115,21 +115,54 @@ class FuncionariosController extends Controller
         return view('admin.funcionariosSearch')->with(['funcionarios' => $funcionarios]);
     }
 
-    public function funcionariosSearch($search = null)
+    public function funcionariosSearch($search = '')
     {
         $departamentos = Departamento::all();
 
-        if ($search == null) {
+        if ($search == '') {
             $funcionarios = User::all();
         } else {
-            $funcionarios = User::where('name', 'like', '%' . $search . '%')->get();
+            $funcionarios = User::where('username', 'like', '%' . $search . '%')->get();
         }
 
-        return view('admin.funcionariosSearch')->with(['funcionarios' => $funcionarios,
+        return view('admin.funcionariosSearch')->with(['funcionarios' => $funcionarios ?? 'N/A',
             'departamentos' => $departamentos
         ]);
     }
+    public function safedelete($id)
+    {
+        $funcionario = User::find($id);
+        $processos = $funcionario->processos;
 
+        // Get a list of all other funcionarios
+        $otherFuncionarios = User::where('id', '!=', $id)->get();
+
+        // If there are other funcionarios available to transfer processos to
+        if (count($otherFuncionarios) > 0) {
+            // Choose the first funcionario from the list
+            $newFuncionario = $otherFuncionarios[0];
+
+            // Transfer the processos to the new funcionario
+            foreach ($processos as $processo) {
+                $processo->user_id = $newFuncionario->id;
+                $processo->save();
+            }
+
+            // Delete the original funcionario
+            $funcionario->delete();
+
+            return redirect()->back()
+                ->with('success', 'Funcionário apagado e seus processos transferidos com sucesso.');
+        } else {
+            return redirect()->route('funcionarios.index')
+                ->with('error', 'Não há outro funcionário disponível para transferir os processos.');
+        }
+    }
+    public function employees(Request $request)
+    {
+        $employees = User::where('departamento_id', $request->departamento_id)->get();
+        return response()->json($employees);
+    }
 }
 
 

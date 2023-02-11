@@ -1,4 +1,4 @@
-<section style="background-color: #eee;">
+<section>
     <div class="container py-5">
         <div class="row">
             <div class="col-lg-4">
@@ -13,9 +13,9 @@
                             <button type="button" class="btn btn-danger m-1" data-toggle="modal" data-target="#modalDelete">
                                 Apagar
                             </button>
-                            <button type="button" class="btn btn-primary m-1" data-toggle="modal"
+                            <button type="button" class="btn btn-info m-1" data-toggle="modal"
                                     data-target="#updateFuncionario">
-                                Update
+                                Atualizar
                             </button>
                         </div>
                     </div>
@@ -65,42 +65,7 @@
                                 <p class="mb-0">Criado em:</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{$funcionario->created_at}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card mb-4 mb-md-0">
-                            <div class="card-body">
-                                <p class="mb-4"><span class="text-primary font-italic me-1">Processos</span>
-                                </p>
-                                <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                                <div class="progress rounded" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                                <div class="progress rounded" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                                <div class="progress rounded" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                                <div class="progress rounded" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                                <div class="progress rounded mb-2" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                <p class="text-muted mb-0">{{ date('d/m/Y H:i', strtotime($funcionario->created_at)) }}</p>
                             </div>
                         </div>
                     </div>
@@ -115,7 +80,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Atualizar funcionario {{$funcionario->username}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -141,7 +106,7 @@
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label"> E-mail:</label>
                         <input name="email" type="text" class="form-control" value="{{$funcionario->email}}"
-                               id="message-text" required></input>
+                               id="message-text" required>
                     </div>
                     <div class="form-group">
                         <label for="permissao" class="col-form-label">Nivel Permissão</label>
@@ -161,8 +126,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Fazer Update</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-info">Atualizar</button>
                     </div>
                 </form>
             </div>
@@ -170,25 +135,27 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form method="post" action="{{route('funcionario.delete', $funcionario->id)}}">
             @csrf
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-danger text-white">
                     <h5 class="modal-title" id="exampleModalLabel">Tem a certeza que pretende Eliminar?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <p>ID: {{$funcionario->id}}</p>
-                    <p> Username:  {{$funcionario->username}}</p>
+                    <p>Username: {{$funcionario->username}}</p>
                 </div>
                 <div class="modal-footer">
                     @if ($funcionario->processos->count() > 0)
-                        <p class="text-danger">Existem processos associados a este funcionario, por isso não é possível excluí-lo.</p>
+                        <p class="text-danger mb-0">Existem processos associados a este funcionário, por isso não é possível excluí-lo.</p>
+                        <button type="button" class="btn btn-danger m-1" data-toggle="modal" data-dismiss="modal" data-target="#modalSafeDelete">
+                            Apagar mesmo assim
+                        </button>
                     @else
                         <button type="submit" class="btn btn-danger">Apagar Funcionário</button>
                     @endif
@@ -199,4 +166,72 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="modalSafeDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form method="post" action="{{route('funcionario.safedelete', $funcionario->id)}}">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="exampleModalLabel">Atribuir processos a outro funcionario:</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true ">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3">Para eliminar este funcionário, terá que atribuir todos os processos do mesmo a um outro nesta lista:</p>
+                    <p class="font-weight-bold">Funcionário atual:</p>
+                    <p class="mb-1">ID: {{$funcionario->id}}</p>
+                    <p class="mb-3">Username: {{$funcionario->username}}</p>
+                    <p class="font-weight-bold">Funcionário a atribuir:</p>
+                    <div class="form-group">
+                        <label >Departamento</label>
+                        <select name="departamento" id="departamentos" class="custom-select form-control"
+                                aria-label="Default select example" required>
+                            <option value="" selected>Selecionar Departamento</option>
+                            @foreach($departamentos as $departamento)
+                                <option value="{{$departamento->id}}">{{$departamento->nome}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Funcionário</label>
+                        <select name="funcionario" id="employee" class="custom-select form-control"
+                                aria-label="Default select example" required>
+                            <option value="">Selecionar Funcionário</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Atribuir e Apagar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#departamentos').on('change', function () {
+            let departmentId = $(this).val();
+            $.ajax({
+                url: "{{ route('funcionario.employees') }}",
+                type: 'GET',
+                data: {departamento_id: departmentId},
+                success: function (data) {
+                    let employeeSelect = $('#employee');
+                    employeeSelect.empty();
+                    employeeSelect.append('<option value="">Selecionar Funcionário</option>');
+                    $.each(data, function (index, employee) {
+                        employeeSelect.append('<option value="' + employee.id + '">' + employee.username + '</option>');
+                    });
+                }
+            });
+        });
+    });
+</script>
 

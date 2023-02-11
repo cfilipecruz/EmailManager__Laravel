@@ -1,30 +1,34 @@
-
-<button type="button" class="btn btn-primary mt-2 mb-2 flex btn-block col-md-12" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Criar
-    novo processo a partir deste e-mail
+<button type="button" class="btn btn-primary mt-2 mb-2 flex btn-block col-md-12" data-toggle="modal"
+        data-target="#exampleModal" data-whatever="@mdo">Criar novo processo a partir deste e-mail
 </button>
 
 <div class="col-md-12">
-    <div class="card card-primary card-outline">
-        <h5 class="card-header">
-            Remetente: {{$message->getFrom()->getAddress()}}
-        </h5>
-        <div class="card-body p-0">
-            <div class="mailbox-read-info">
-                <h5> Assunto: {{$message->getSubject()}}</h5>
-                <h6><span class="float-right"> {{$message->getDate()->format('d/m/Y')}}</span></h6>
+    <div class="card border-primary">
+        <div class="card-header bg-secondary text-white">
+            <div class="d-flex align-items-center">
+                <h5 class="mb-0">{{$message->getSubject()}}</h5>
+                <div class="ml-auto">
+                    <p class=" mb-0">{{$message->getDate()->format('d/m/Y')}}</p>
+                </div>
             </div>
         </div>
-        <div class="mailbox-read-message">
-            <h5>Conteudo: </h5>
-            <p> {!! $message->getBodyHtml() !!}</p>
+        <div class="card-body p-4">
+            <h5 class="mb-3">De: {{$message->getFrom()->getAddress()}}</h5>
+            <hr>
+            <h5>Conteúdo:</h5>
+            <p class="mb-0">{!! $message->getBodyHtml() !!}</p>
         </div>
     </div>
-    <div class="card-footer bg-white">
-        <ul class="mailbox-attachments d-flex align-items-stretch clearfix" style=" display: flex; flex-wrap: wrap;">
-            @if ($attachments != 0)
+    @if ($attachments != null)
+        <div class="card-footer bg-white">
+            <ul class="mailbox-attachments d-flex align-items-stretch clearfix"
+                style=" display: flex; flex-wrap: wrap;">
                 @foreach ($attachments as $attachment)
-                    <li style="cursor: pointer; width: 150px; margin: 10px; text-align: center;" class="d-flex align-items-center" onclick="event.preventDefault(); document.getElementById('openAttachmentForm{{$loop->index}}').submit();">
-                        <form method="POST" action="{{route('attachment.open')}}" id="openAttachmentForm{{$loop->index}}">
+                    <li style="cursor: pointer; width: 150px; margin: 10px; text-align: center;"
+                        class="d-flex align-items-center"
+                        onclick="event.preventDefault(); document.getElementById('openAttachmentForm{{$loop->index}}').submit();">
+                        <form method="POST" action="{{route('attachment.open')}}"
+                              id="openAttachmentForm{{$loop->index}}">
                             @csrf
                             <input type="hidden" name="filename" value="{{$attachment->getFilename()}}">
                             <input type="hidden" name="message_number" value="{{$message->getNumber()}}">
@@ -56,12 +60,10 @@
                         </form>
                     </li>
                 @endforeach
-            @endif
-        </ul>
-    </div>
-
+            </ul>
+        </div>
+    @endif
 </div>
-
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -87,8 +89,9 @@
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">Departamento</label>
-                        <select name="departamento" id="department" class="custom-select form-control" aria-label="Default select example" required>
-                            <option value="" selected>Selecionar Departmento</option>
+                        <select name="departamento" id="departamento" class="custom-select form-control"
+                                aria-label="Default select example" required>
+                            <option value="" selected>Selecionar Departamento</option>
                             @foreach($departamentos as $departamento)
                                 <option value="{{$departamento->id}}">{{$departamento->nome}}</option>
                             @endforeach
@@ -96,7 +99,8 @@
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">Funcionário</label>
-                        <select name="funcionario" id="employee" class="custom-select form-control" aria-label="Default select example" required>
+                        <select name="funcionario" id="employee" class="custom-select form-control"
+                                aria-label="Default select example" required>
                             <option value="">Selecionar Funcionário</option>
                         </select>
                     </div>
@@ -119,7 +123,7 @@
                                   readonly>{{$message->getBodyText()}}</textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                         <button type="submit" class="btn btn-primary">Criar Processo</button>
                     </div>
                 </form>
@@ -130,28 +134,28 @@
 
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
-<script>
+<!--<script>
     $('#exampleModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         var recipient = button.data('whatever')
         var modal = $(this)
     })
-</script>
+</script>-->
 
 <script>
-    $(document).ready(function() {
-        $('#department').on('change', function() {
+    $(document).ready(function () {
+        $('#departamento').on('change', function () {
             let departmentId = $(this).val();
             $.ajax({
                 url: "{{ route('employees') }}",
                 type: 'GET',
-                data: { departamento_id: departmentId },
-                success: function(data) {
+                data: {departamento_id: departmentId},
+                success: function (data) {
                     let employeeSelect = $('#employee');
                     employeeSelect.empty();
                     employeeSelect.append('<option value="">Selecionar Funcionário</option>');
-                    $.each(data, function(index, employee) {
-                        employeeSelect.append('<option value="' + employee.id + '">' + employee.name + '</option>');
+                    $.each(data, function (index, employee) {
+                        employeeSelect.append('<option value="' + employee.id + '">' + employee.username + '</option>');
                     });
                 }
             });

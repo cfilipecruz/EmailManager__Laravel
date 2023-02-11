@@ -113,11 +113,14 @@ class MeusProcessosController extends Controller
         $funcionarios = User::all();
         $departamentos = Departamento::all();
         $estados = Estado::all();
+       // $email = Email::where('processo_id', $id);
 
         return view('meusprocessos.processo')->with(['processo' => $processo,
+           // 'email' => $email,
             'funcionarios' => $funcionarios,
             'estados' => $estados,
-            'departamentos' => $departamentos]);
+            'departamentos' => $departamentos
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -158,19 +161,31 @@ class MeusProcessosController extends Controller
             'departamentos' => $departamentos
         ]);
     }
-    public function arquivar(Request $request)
+    public function arquivar($id)
     {
-        $processo = new Arquivo();
 
-        $processo->nome = $request->nome;
-        $processo->descricao = $request->descricao;
-        $processo->estado_id = $request->estado;
-        $processo->departamento_id = $request->departamento;
-        $processo->user_id = $request->funcionario;
+        $processo = Processo::find($id);
 
-        $processo->save();
+        $arquivo = new Arquivo();
+
+        $arquivo->nome = $processo->nome;
+        $arquivo->descricao = $processo->descricao;
+        $arquivo->estado_id = $processo->estado_id;
+        $arquivo->departamento_id = $processo->departamento_id;
+        $arquivo->user_id = $processo->user_id;
+        $arquivo->created_at =\Carbon\Carbon::now();
+
+        $arquivo->save();
+
+        $processo->delete();
 
         return redirect()->back();
+    }
+
+    public function employees(Request $request)
+    {
+        $employees = User::where('departamento_id', $request->departamento_id)->get();
+        return response()->json($employees);
     }
 }
 

@@ -47,7 +47,7 @@ Route::get('/mailbox/email/{id?}', [App\Http\Controllers\MailBoxController::clas
 
 Route::post('/attachment/open', [App\Http\Controllers\MailBoxController::class, 'openAttachment'])->name('attachment.open');
 
-Route::get('/attachment/employees', [App\Http\Controllers\MailBoxController::class, 'employees'])->name('employees');
+Route::get('/mailbox/employees', [App\Http\Controllers\MailBoxController::class, 'employees'])->name('employees');
 
 
 //Processos---------------------------------------------------------------------------------------------------------------
@@ -78,6 +78,8 @@ Route::post('/meusprocessos/delete/{id?}', [\App\Http\Controllers\MeusProcessosC
 
 Route::post('/meusprocessos/arquivar/{id?}', [\App\Http\Controllers\MeusProcessosController::class, 'arquivar'])->name('meusprocessos.arquivar');
 
+Route::get('/processos/employees', [App\Http\Controllers\MeusProcessosController::class, 'employees'])->name('processos.employees');
+
 //Perfil-----------------------------------------------------------------------------------------
 Route::get('perfil',[PerfilController::class,'index'])->name('perfil');
 
@@ -107,6 +109,11 @@ Route::post('/admin/save', [\App\Http\Controllers\FuncionariosController::class,
 Route::get('/admin/funcionario/Search/{search?}', [\App\Http\Controllers\FuncionariosController::class, 'funcionariosSearch'])->name('admin.funcionariosSearch');
 
 Route::post('/admin/delete/{id?}', [\App\Http\Controllers\FuncionariosController::class, 'delete'])->name('funcionario.delete');
+
+Route::post('/admin/safedelete/{id?}', [\App\Http\Controllers\FuncionariosController::class, 'safedelete'])->name('funcionario.safedelete');
+
+Route::get('/admin/employees', [\App\Http\Controllers\FuncionariosController::class, 'employees'])->name('funcionario.employees');
+
 
 
 //Departamentos------------------------------------------------------------------------------------

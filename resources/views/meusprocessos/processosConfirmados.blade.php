@@ -14,9 +14,11 @@
         @if($processo->estado_id == 1)
             <tr class="bg-primary">
                 <td scope="row"> <a style="cursor:pointer;" class="readProcesso text-white" data-id="{{$processo->id}}"> {{$processo->id}}</a> </td>
-                <td><a style="cursor:pointer;" class="readProcesso text-white" data-id="{{$processo->id}}">{{$processo->nome}}</a> </td>
-                <td>{{$processo->created_at}}</td>
-                <td>{{$processo->updated_at}}</td>
+                <td><a style="cursor:pointer;" class="readProcesso text-white"
+                       data-id="{{$processo->id}}">{{ substr($processo->nome, 0, 20) . (strlen($processo->nome) > 15 ? "..." : "") }}</a></td>
+
+                <td>{{ date('d/m/Y', strtotime($processo->created_at)) }}</td>
+                <td>{{ date('d/m/Y', strtotime($processo->updated_at)) }}</td>
                 <td>{{$processo->departamento->nome}}</td>
             </tr>
         @endif

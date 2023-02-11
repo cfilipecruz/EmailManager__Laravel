@@ -10,15 +10,15 @@
         </thead>
         <tbody>
         @foreach($departamentos as $departamento)
-            <tr>
+            <tr class="list-group-item-action bg-primary">
                 <th scope="row">{{$departamento->id}}</th>
                 <td>
-                    <a style="cursor:pointer;" class="verDepartamento"
+                    <a style="cursor:pointer;" class="verDepartamento text-white"
                        data-id="{{$departamento->id}}"> {{$departamento->nome}}
                     </a>
                 </td>
                 <td>{{$departamento->identificador}}</td>
-                <td>{{$departamento->created_at}}</td>
+                <td> {{ date('d/m/Y', strtotime($departamento->created_at)) }} </td>
             </tr>
         @endforeach
         </tbody>

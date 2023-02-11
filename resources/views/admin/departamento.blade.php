@@ -15,8 +15,8 @@
                                         <p class="text-muted">{{$departamento->identificador}}</p>
                                     </div>
                                     <div class="col-6 mb-3">
-                                        <h6>Criado a</h6>
-                                        <p class="text-muted">{{$departamento->created_at}}</p>
+                                        <h6>Criado a:</h6>
+                                        <p class="text-muted mb-0">{{ date('d/m/Y H:i', strtotime($departamento->created_at)) }}</p>
                                     </div>
                                 </div>
                                 <h6>Descrição</h6>
@@ -31,9 +31,9 @@
                                             data-target="#modalDelete">
                                         Apagar
                                     </button>
-                                    <button type="button" class="btn btn-primary m-1" data-toggle="modal"
+                                    <button type="button" class="btn btn-info m-1" data-toggle="modal"
                                             data-target="#updateDepartamento">
-                                        Update
+                                        Atualizar
                                     </button>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Atualizar Departamento</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -74,8 +74,8 @@
                                       id="message-text" required>{{$departamento->descricao}}</textarea>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Fazer Update</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-info">Atualizar</button>
                         </div>
                     </form>
                 </div>

@@ -150,7 +150,7 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => false,
+    'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => false,
     'layout_fixed_footer' => false,
     'layout_dark_mode' => false,
@@ -213,12 +213,12 @@ return [
     'sidebar_mini' => 'lg',
     'sidebar_collapse' => false,
     'sidebar_collapse_auto_size' => false,
-    'sidebar_collapse_remember' => false,
+    'sidebar_collapse_remember' => true,
     'sidebar_collapse_remember_no_transition' => true,
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
     'sidebar_nav_accordion' => true,
-    'sidebar_nav_animation_speed' => 300,
+    'sidebar_nav_animation_speed' => 200,
 
     /*
     |--------------------------------------------------------------------------
@@ -259,7 +259,7 @@ return [
     'register_url' =>false, //'register'
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => 'perfil',
 
     /*
     |--------------------------------------------------------------------------
@@ -314,7 +314,7 @@ return [
             'label_color' => 'success',
         ],
         [
-            'text' => 'mailbox',
+            'text' => 'Mailbox',
             'url'  => 'mailbox',
             'icon' => 'fas fa-fw  fa-envelope',
             'can' => 'viewEmails',
@@ -329,14 +329,14 @@ return [
             'can' => 'admin',
         ],
         [
-            'text' => 'Gerir Funcionários',
+            'text' => 'Funcionários',
             'url'  => 'funcionarioslist',
             'icon' => 'fas fa-fw  fa-users',
             'can' => 'admin',
         ],
 
         [
-            'text' => 'Gerir Departamentos',
+            'text' => 'Departamentos',
             'url'  => 'departamentoslist',
             'icon' => 'fas fa-fw fa-list',
             'can' => 'admin',

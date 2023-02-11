@@ -9,8 +9,8 @@
             <td>date</td>
         </tr>
         <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Inbox</h3>
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="text-secondary">Procura de Emails</h3>
             </div>
         </div>
         @foreach ($messages as $message)

@@ -10,7 +10,7 @@
 @section('title', 'Mail Manager')
 
 @section('content')
-    <section style="background-color: #eee;" class="m-0, p-0">
+    <section class="m-0, p-0">
         <div class="row">
             <div class="col-lg-4 mt-4">
                 <div class="card mb-4">
@@ -22,8 +22,8 @@
                         <p class="text-muted mb-1">{{$funcionario->username}}</p>
                         <p class="text-muted mb-1">ID: {{$funcionario->id}}</p>
                         <div class="d-flex justify-content-center mb-2">
-                            <a data-toggle="modal" data-target="#modalUpdate" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Mudar Password</a>
-                            <button type="button" class="btn btn-outline-primary  ms-2 me-2" Disabled>Mais Opções</button>
+                            <a data-toggle="modal" data-target="#modalUpdate" class="btn btn-info btn-lg active m-1" role="button" aria-pressed="true">Mudar Password</a>
+                           <!-- <a data-toggle="modal" data-target="#modalUpdate" class="btn btn-info btn-lg active m-1" role="button" aria-pressed="true" disabled>Não Atribuido</a>-->
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                                 <p class="mb-0">Conta criada a:</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{$funcionario->created_at}}</p>
+                                <p class="text-muted mb-0">{{ date('d/m/Y H:i', strtotime($funcionario->created_at)) }}</p>
                             </div>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Atualizar Processo</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Atualizar Password</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

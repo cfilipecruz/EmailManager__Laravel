@@ -10,28 +10,9 @@
         </tr>
 
         <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Inbox</h3>
-                <div class="box-tools pull-right">
-                    <div class="has-feedback">
-                        <input type="text" class="form-control input-sm" placeholder="Search Mail">
-                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                    </div>
-                </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="text-secondary">Emails Novos</h3>
             </div>
-
-            <div class="box-body no-padding">
-                <div class="mailbox-controls">
-                    <div class="pull-right">
-                        1-50/200
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-sm"><i
-                                    class="fa fa-chevron-left"></i></button>
-                            <button type="button" class="btn btn-default btn-sm"><i
-                                    class="fa fa-chevron-right"></i></button>
-                        </div>
-                    </div>
-                </div>
 
                 @foreach ($messages as $message)
                     @if(!$message->isSeen())
@@ -58,4 +39,39 @@
         @endforeach
         </tbody>
     </table>
+</div>
+<div class="container mt-5" >
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item
+                        @if($paginatedMessages->currentPage() === 1)
+                            disabled
+                        @endif
+                        ">
+                        <a class="page-link changePage" style="cursor:pointer" data-href="{{ url()->current() }}?page={{ $paginatedMessages->currentPage() - 1 }}" tabindex="-1">Previous</a>
+                    </li>
+
+                    @for($i = 1; $i <= $paginatedMessages->lastPage(); $i++)
+                        <li class="page-item
+                            @if($i === $paginatedMessages->currentPage())
+                                active
+                            @endif
+                            ">
+                            <a class="page-link changePage" style="cursor:pointer" data-href="{{ url()->current() }}?page={{ $i }}">{{ $i }}</a>
+                        </li>
+                    @endfor
+
+                    <li class="page-item
+                        @if($paginatedMessages->currentPage() === $paginatedMessages->lastPage())
+                            disabled
+                        @endif
+                        ">
+                        <a  class="page-link changePage" style="cursor:pointer" data-href="{{ url()->current() }}?page={{ $paginatedMessages->currentPage() + 1 }}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </div>

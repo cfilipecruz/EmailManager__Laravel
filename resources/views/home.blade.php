@@ -41,7 +41,7 @@
                 <div class="card text-white bg-danger mb-3"
                      style="max-width: 20rem; animation: flipInX 1s ease-in-out;">
                     <div class="card-body">
-                        <h5 class="card-title">{{ __('pages.profile') }}</h5>
+                        <h5 class="card-title">Perfil</h5>
                         <p class="card-text">Ver o meu perfil.</p>
                         <a href="{{ route('perfil') }}" class="btn btn-light">Ir para a página</a>
                     </div>
@@ -52,8 +52,8 @@
                     <div class="card text-white bg-warning mb-3"
                          style="max-width: 20rem; animation: flipInX 1s ease-in-out;">
                         <div class="card-body">
-                            <h5 class="card-title">Gerir Funcionários</h5>
-                            <p class="card-text">Administrar funcionários da empresa.</p>
+                            <h5 class="card-title">Funcionários</h5>
+                            <p class="card-text">Gerir funcionários da empresa.</p>
                             <a href="{{ route('funcionarioslist') }}" class="btn btn-light">Ir para a página</a>
                         </div>
                     </div>
@@ -62,8 +62,8 @@
                     <div class="card text-white bg-info mb-3"
                          style="max-width: 20rem; animation: flipInX 1s ease-in-out;">
                         <div class="card-body">
-                            <h5 class="card-title">Gerir Departamentos</h5>
-                            <p class="card-text">Administrar departamentos da empresa.</p>
+                            <h5 class="card-title">Departamentos</h5>
+                            <p class="card-text">Gerir departamentos da empresa.</p>
                             <a href="{{ route('departamentoslist') }}" class="btn btn-light">Ir para a página</a>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                     <div class="card text-white bg-secondary mb-3"
                          style="max-width: 20rem; animation: flipInX 1s ease-in-out;">
                         <div class="card-body">
-                            <h5 class="card-title">Ver Arquivos</h5>
+                            <h5 class="card-title">Arquivos</h5>
                             <p class="card-text">Ver processos arquivados.</p>
                             <a href="{{ route('arquivo') }}" class="btn btn-light">Ir para a página</a>
                         </div>
@@ -99,7 +99,7 @@
                 <div class="col-sm-6 mb-3">
                     <div class="card">
                         <div class="card-header text-center bg-dark text-white">
-                            <h5 class="card-title">Informações Cliente</h5>
+                            <h5 class="card-title">Informações do Cliente</h5>
                         </div>
                         <div class="card-body">
                             <p class="card-text"><strong>Nome: </strong> {{ "FTKODE" }}</p>
